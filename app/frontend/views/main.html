@@ -1,0 +1,29 @@
+<!-- ******PROMO****** -->
+<section id="promo" class="promo section offset-header">
+  <div class="container text-center">
+    <div class="container-fluid">
+      <div class="col-md-4 title">
+        <h1 style="text-align:left">{{curTime.time.hours}}:{{curTime.time.min}}:{{curTime.time.sec}}</h1>
+        <h3>{{curTime.time.meridiem}}</h3>
+      </div>
+
+      <div class="col-md-4 col-md-offset-4">
+        <h1><img src="{{weather.icon}}" style="width:160px">{{weather.main.temp}} &#8457</h1>
+        <center>
+          <h4>{{weather.main.humidity}}% Humidity</h4>
+          <h4>Wind speed {{weather.wind.speed}}</h4>
+          <h3>Sunrise/Sunset</h3>
+          <h4>{{weather.sunrise.hours}}:{{weather.sunrise.min}} AM/ {{weather.sunset.hours}}:{{weather.sunset.min}} PM</h4>
+        </center>
+      </div>
+
+      <div class="col-md-4">
+        <h3 style="text-align:right;">{{curTime.day}}</h3>
+        <h1 style="text-align:left;float:right;font-size: 60px;">{{curTime.month}}</h1>
+        <h1 style="text-align:right;float:right;font-size: 120px;">{{curTime.dayNumber}}</h1>
+        <br><br><br><br><br>
+        <h3 style="text-align:right;float:right;">{{curTime.year}}</h3>
+      </div>
+    </div>
+  </div><!--//container-->
+</section><!--//promo-->
