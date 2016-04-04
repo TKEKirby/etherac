@@ -4,18 +4,18 @@ var LocalStrategy 	= require('passport-local').Strategy;
 var mongoose 		= require('mongoose');
 var User 			= mongoose.model('User');
 var Remember		= mongoose.model('Remember');
-var path 			= require('path');
+//var path 			= require('path');
 
 
 module.exports = function (env, passport ) {
 	passport.serializeUser(function(user, done) {
 		done(null, user._id);
 	});
-	
+
 	passport.deserializeUser(function(id, done) {
 		User.findById(id, function(err, user) {
-			done(err, user);		
-		});	
+			done(err, user);
+		});
 	});
 
 	var newEndToken = function (cLogin, cId, callback) {
@@ -25,13 +25,13 @@ module.exports = function (env, passport ) {
 		newEndToken.token = Math.random().toString(36).substr(2,10);
 		newEndToken.save(callback);
 	};
-	
+
 
 	passport.use('local-signup', new LocalStrategy({
 		usernameField : 'email',
 		passwordField : 'password',
 		passReqToCallback : true
-	}, 
+	},
 	function(req, email, password, done){
 		process.nextTick(function () {
 			User.findOne({ 'email' : email }, function (err, user) {
@@ -40,18 +40,18 @@ module.exports = function (env, passport ) {
 					return done(null, false, req.flash('signupMessage', 'email already there'));
 				}
 				else {
-					
+
 					var newUser = new User();
 					newUser.fullname = req.body.fullname;
 					newUser.email = email;
 					newUser.password = newUser.generateHash(password);
-					
-					
+
+
 					newUser.save(function (err) {
 						if (err) { throw err; }
-						
+
 						return done(null, newUser);
-									
+
 					});
 				}
 			});
@@ -63,7 +63,7 @@ module.exports = function (env, passport ) {
 		passwordField : 'password',
 		passReqToCallback : true,
 		allowNoField : true
-	}, 
+	},
 	function (req, email, password, done) {
 		if (email && password) {
 			User.findOne({ 'email' : email }, function (err, user) {
@@ -114,12 +114,12 @@ module.exports = function (env, passport ) {
 
 								}
 
-								
-								
+
+
 								return done(null, false, req.flash('signInMessage', 'theft tentative detected.'));
 
 							});
-							
+
 						}
 
 						else {
@@ -152,7 +152,7 @@ module.exports = function (env, passport ) {
 						}
 
 					});
-			} 
+			}
 
 			else {
 

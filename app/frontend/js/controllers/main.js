@@ -10,7 +10,7 @@ angular.module('etherac')
 
     setTimeout(function(){// if you use artyom.fatality , wait 250 ms to initialize again.
       artyom.initialize({
-        lang:"en-US",// A lot of languages are supported. Read the docs !
+        lang:'en-US',// A lot of languages are supported. Read the docs !
         continuous:true,// Artyom will listen forever
         listen:true, // Start recognizing
         debug:true, // Show everything in the console

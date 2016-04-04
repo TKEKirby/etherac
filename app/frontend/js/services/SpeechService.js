@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('etherac').service('SpeechService', ['$rootScope', function ($rootScope) {
+angular.module('etherac').service('SpeechService', ['$rootScope',function ($rootScope) {
 	return {
 		setupSpeech:function(){
 			artyom.addCommands([
@@ -44,6 +44,13 @@ angular.module('etherac').service('SpeechService', ['$rootScope', function ($roo
 		      action:function(i){
 		        console.log(i);//Contains the index of the recognized command in the indexes property
 		        artyom.say('It is ' + $rootScope.curTime.time.hours + ' ' + $rootScope.curTime.time.min + $rootScope.curTime.time.meridiem);
+		      }
+		    },
+		    {
+		      indexes:['What should the dogs do right now'],
+		      action:function(i){
+		        console.log(i);//Contains the index of the recognized command in the indexes property
+		        artyom.say('The dogs should, calm, the fuck down');
 		      }
 		    }
 		  ]);
