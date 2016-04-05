@@ -1,0 +1,20 @@
+<section id="musicLib" class="musicLib section offset-header">
+	<div class="container text-center">
+		<h1>Music Library</h1>
+		<table class="musicLibrary-table">
+			<tr>
+				<th style="color:white">Name</th>
+				<th style="color:white">Artist</th>
+				<th style="color:white">Album</th>
+				<th style="color:white">Length</th>
+			</tr>
+			<tr ng-repeat="song in library">
+				<td style="color:white">{{song.name}}</td>
+				<td style="color:white">{{song.artist}}</td>
+				<td style="color:white">{{song.album}}</td>
+				<td style="color:white">{{song.length}}</td>
+			</tr>
+		</table>
+		<p style="color:red">{{errorMessage}}</p>
+	</div>
+</section>

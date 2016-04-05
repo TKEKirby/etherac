@@ -50,6 +50,21 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
       controller: 'AdminCtrl',
       resolve: {loggedin: isLoggedIn}
     })
+    .when('/musicLib', {
+      templateUrl: 'views/musicLib.html',
+      controller: 'MusicLibCtrl',
+      resolve: {loggedin: isLoggedIn}
+    })
+    .when('/musicPlayer', {
+      templateUrl: 'views/musicPlayer.html',
+      controller: 'MusicLibCtrl',
+      resolve: {loggedin: isLoggedIn}
+    })
+    .when('/musicPlaylist', {
+      templateUrl: 'views/musicPlaylist.html',
+      controller: 'MusicLibCtrl',
+      resolve: {loggedin: isLoggedIn}
+    })
     .otherwise({
       redirectTo: '/404'
     });

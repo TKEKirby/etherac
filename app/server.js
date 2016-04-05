@@ -15,6 +15,7 @@ var app 		  = require('./backend/app');
 var path 		  = require('path');
 var logger 		= require('morgan');
 var config		= JSON.parse(fs.readFileSync(path.join(__dirname, './config.json'), 'utf8'));
+ 
 
 /**
  * Server configuration in development environment.
@@ -45,13 +46,13 @@ if (app.get('env') === 'development') {
 	app.all('/*', function (req, res) {
 		res.sendFile(path.join(__dirname, './frontend/index.html'));
 	});
-} 
+}
 else {
 
 	// Set hostname from config file
 	app.set('host', config.production.host);
 
-	// Set port from config file 
+	// Set port from config file
 	app.set('port', config.production.port);
 
 	// Express will use /frontend dir to access to index.html and other files required by AngularJS

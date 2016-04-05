@@ -33,7 +33,7 @@ angular.module('etherac').service('SpeechService', ['$rootScope',function ($root
 		      }
 		    },
 		    {
-		      indexes:['What\'s the temperature'],
+		      indexes:['What\'s the temperature', 'What is the temperature'],
 		      action:function(i){
 		        console.log(i);//Contains the index of the recognized command in the indexes property
 		        artyom.say('It is ' + parseInt($rootScope.weather.main.temp) + 'degrees outside right now.');

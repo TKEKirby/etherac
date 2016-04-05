@@ -2,6 +2,13 @@
 
 angular.module('etherac').service('ApiService', ['$q', '$http',function ($q,$http) {
 	return {
+
+		/*
+		* Description:
+		* Get weather from openweathermap.org.
+		* Params: userlocation - The location object containing lat and lon (fixed point)
+		* Return: response
+		*/
 		getweather:function(userlocation){
 			var options = {
 				method: 'GET',
