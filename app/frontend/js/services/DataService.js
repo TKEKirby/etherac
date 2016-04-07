@@ -37,7 +37,7 @@ angular.module('etherac').service('DataService', ['$q', '$http', 'ApiService',fu
 				else {
 					weather.sunset.min = sunset.getMinutes().toString();
 				}
-				weather.icon = 'frontend/img/weatherIcons/' + weather.weather[0].icon + '.png';
+				weather.icon = '../img/weatherIcons/' + weather.weather[0].icon + '.png';
 				deferred.resolve(weather);
 			});
 			return deferred.promise;

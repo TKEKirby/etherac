@@ -15,7 +15,7 @@ var app 		  = require('./backend/app');
 var path 		  = require('path');
 var logger 		= require('morgan');
 var config		= JSON.parse(fs.readFileSync(path.join(__dirname, './config.json'), 'utf8'));
- 
+
 
 /**
  * Server configuration in development environment.

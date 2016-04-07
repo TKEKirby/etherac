@@ -18,11 +18,12 @@ angular.module('etherac')
         continuous:true,// Artyom will listen forever
         listen:true, // Start recognizing
         debug:true, // Show everything in the console
-        speed:'.5' // talk normally
+        speed:'1' // talk normally
       });
       SpeechService.setupSpeech();
     },250);
   }
+
 
   /*
 	* Description:
@@ -44,6 +45,7 @@ angular.module('etherac')
     });
   }
 
+
   /*
 	* Description:
 	* Keep the date and time current
@@ -62,6 +64,7 @@ angular.module('etherac')
     }, 1000
   );
 
+
   $rootScope.pageTitle = 'Homepage';
   $rootScope.curTime = {};
   $rootScope.curTime.time = DataService.getTime();
@@ -70,5 +73,5 @@ angular.module('etherac')
   $rootScope.curTime.month = DataService.getMonth();
   $rootScope.curTime.year = DataService.getYear();
   startContinuousArtyom();
-}
-]);
+
+}]);

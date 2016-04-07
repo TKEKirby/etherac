@@ -17,7 +17,8 @@
     "angular-animate": "~1.2.0",
     "angular-touch": "~1.2.0",
     "es5-shim": "~4.0.5",
-    "artyom.js": "*"
+    "artyom.js": "*",
+    "jPlayer": "jplayer#^2.9.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",
