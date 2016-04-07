@@ -1,12 +1,19 @@
 'use strict';
 
 angular.module('etherac')
-.controller('MusicLibCtrl', ['$rootScope', '$scope', '$http', '$window', 'SpeechService', function($rootScope, $scope, $http, $window, SpeechService) {
+.controller('MusicLibCtrl', ['$rootScope', '$scope', '$http', '$window', 'SpeechService', 'MusicService', function($rootScope, $scope, $http, $window, SpeechService, MusicService) {
 
 	$rootScope.pageTitle = $rootScope.currentUser.fullname + '| Music Library';
 	$scope.errorMessage = '';
 	$scope.songlibrary = [];
 
+	/*
+	* Set up playlist variables and initiate new jPlayerPlaylist
+	*/
+	var cssSelector = { jPlayer: '#jquery_jplayer_1', cssSelectorAncestor: '#jp_container_1' };
+	var playlist = [];
+	var options = { swfPath: '/js', supplied: 'ogv, m4v, oga, mp3' };
+	$rootScope.nowPlaying = new jPlayerPlaylist(cssSelector, playlist, options);
 
 	/*
 	* Description:
@@ -28,50 +35,6 @@ angular.module('etherac')
       SpeechService.setupSpeech();
     },250);
   }
-
-
-	/*
-	* Description:
-	* Read the music library into an return it as an array
-	* Params: none
-	* Return: the music library as an arry of objects
-	*/
-	var readLibrary = function () {
-		$http.get('/song').success(function (songlibrary) {
-			if (songlibrary === '0') {
-				$scope.errorMessage ='There\'s no songs in the library.';
-				$scope.songlibrary = [];
-			} else {
-				$scope.errorMessage ='';
-				$scope.songlibrary = songlibrary;
-			}
-		}).error(function (error, status) {
-			return error + ' (code:' + status + ')';
-		});
-	};
-
-
-	/*
-	* Description:
-	* Edit a song data in the database
-	* Params: Song an object containing the song data
-	* Return: The new library or the error message
-	*/
-	$scope.editSong = function (songId, songName) {
-		var prompt = $window.prompt('New song name :', songName);
-		if(prompt !== null) {
-			$http.put('/song/'+songId, {name: prompt}).success(function () {
-				readLibrary();
-			}).error(function (error, status) {
-				$scope.errorMessage = error + ' (code:' + status + ')';
-			});
-		}
-	};
-
-
-	readLibrary();
-	startContinuousArtyom();
-
 
 	/*
 	* Description:
@@ -97,29 +60,52 @@ angular.module('etherac')
 	});
 
 	/*
-	* Set up playlist variables and initiate new jPlayerPlaylist
+	* Description:
+	* Read the music library into an return it as an array
+	* Params: none
+	* Return: the music library as an arry of objects
 	*/
-	var cssSelector = { jPlayer: '#jquery_jplayer_1', cssSelectorAncestor: '#jp_container_1' };
-	var playlist = [];
-	var options = { swfPath: '/js', supplied: 'ogv, m4v, oga, mp3' };
-	var myPlaylist = new jPlayerPlaylist(cssSelector, playlist, options);
+	var readLibrary = function (){
+		MusicService.readLibrary().then(function (res) {
+			if (res !== 'error') {
+				$scope.songlibrary = res;
+			}
+		});
+	};
+
 
 
 	/*
 	* Description:
-	* Use jPlayer to play audio files
+	* Edit a song data in the database
+	* Params: Song an object containing the song data
+	* Return: The new library or the error message
+	*/
+	$scope.editSong = function (songId, songName) {
+		var prompt = $window.prompt('New song name :', songName);
+		if(prompt !== null) {
+			$http.put('/song/'+songId, {name: prompt}).success(function () {
+				readLibrary();
+			}).error(function (error, status) {
+				$scope.errorMessage = error + ' (code:' + status + ')';
+			});
+		}
+	};
+
+
+	/*
+	* Description:
+	* Call Music service function to add song to now playing
 	* Params: songId of song to play
-	* Return:
+	* Return: none
 	*/
 	$scope.addToNowPlaying = function (song) {
-		myPlaylist.add({
-			title:song.title,
-			artist:song.artist,
-			mp3: '../songs/' + song.artist + '/' + song.album + '/' + song.file,
-			poster:''
-		});
-		console.log('../songs/' + song.artist + '/' + song.album + '/' + song.file);
+		MusicService.addToNowPlaying(song);
 	};
+
+
+	readLibrary();
+	startContinuousArtyom();
 
 
 	/*
