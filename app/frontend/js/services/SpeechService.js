@@ -4,43 +4,88 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 	return {
 		setupSpeech:function(){
 
+			/*
+			* Description:
+			* Add commands to artyom
+			*/
 			artyom.addCommands([
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
 					indexes:['Say something robot'],
 					action:function(){
 						artyom.say('Something robot');
 					}
 				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
-					indexes:['Are you awake','You up','Are you there'],
+					indexes:['Are you awake','You up','Are you there','Are you up'],
 					action:function(){
 						artyom.say('For you sir always');
 					}
 				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
 					indexes:['What time is sunset'],
 					action:function(){
 						artyom.say('Sunset is at ' + $rootScope.weather.sunset.hours + ' ' + $rootScope.weather.sunset.min + 'PM');
 					}
 				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
 					indexes:['What time is sunrise'],
 					action:function(){
 						artyom.say('Sunrise is at ' + $rootScope.weather.sunrise.hours + ' ' + $rootScope.weather.sunrise.min + 'AM');
 					}
 				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
 					indexes:['What\'s the temperature', 'What is the temperature'],
 					action:function(){
 						artyom.say('It is ' + parseInt($rootScope.weather.main.temp) + 'degrees outside right now.');
 					}
 				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
 					indexes:['What time is it'],
 					action:function(){
 						artyom.say('It is ' + $rootScope.curTime.time.hours + ' ' + $rootScope.curTime.time.min + $rootScope.curTime.time.meridiem);
 					}
 				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
 					indexes:['What should the dogs do right now'],
 					action:function(){
@@ -48,6 +93,15 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					}
 				},
 
+				/*
+				* Begin Music Commands
+				*/
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
 					smart:true,
 					indexes:['play *'],
@@ -74,6 +128,11 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					}
 				},
 
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
 					smart:true,
 					indexes:['add *'],
@@ -96,18 +155,35 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					}
 				},
 
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
 					indexes:['pause', 'stop'],
 					action:function(){
 						MusicService.pauseNowPlaying();
 					}
 				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
 					indexes:['next song', 'next'],
 					action:function(){
 						MusicService.nextNowPlaying();
 					}
 				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
 				{
 					indexes:['play'],
 					action:function(){
@@ -115,17 +191,22 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					}
 				}
 
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				{
+					smart:true,
+					indexes:['play'],
+					action:function(){
+
+					}
+				}
+				*/
+
+
 			]);
-
-
-
-
-
-
-
-
-
-
 
 		}
 	};

@@ -1,22 +1,22 @@
 <section id="musicLib" class="musicLib section offset-header">
 	<div class="container text-center">
 		<h1>Music Library</h1>
-		<table class="musicLibrary-table">
+		<div style="height: 400px; overflow: auto">
+		<table class="musicLibrary">
 			<tr>
-				<th style="color:white">Name</th>
-				<th style="color:white">Artist</th>
-				<th style="color:white">Album</th>
-				<th style="color:white">Length</th>
+				<th class="titleColHead"><center>Name</center></th>
+				<th class="artistColHead"><center>Artist</center></th>
+				<th class="albumColHead"><center>Album</center></th>
+				<th class="lengthColHead"><center>Length</center></th>
 			</tr>
-			<tr ng-repeat="song in songlibrary" ng-click="addToNowPlaying(song)">
-				<td style="color:white">{{song.title}}</td>
-				<td style="color:white">{{song.artist}}</td>
-				<td style="color:white">{{song.album}}</td>
-				<td style="color:white">{{song.length}}</td>
+			<tr ng-repeat="song in songlibrary" ng-click="addToNowPlaying(song)" class="musicLibsongs">
+				<td class="titleCol">{{song.title}}</td>
+				<td class="artistCol">{{song.artist}}</td>
+				<td class="albumCol">{{song.album}}</td>
+				<td class="lengthCol">{{song.length}}</td>
 			</tr>
 		</table>
-		<p style="color:red">{{errorMessage}}</p>
-		
+		</div>
 
 		<div id="jquery_jplayer_1" class="jp-jplayer"></div>`
 		<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
@@ -24,6 +24,7 @@
 				<div class="jp-gui jp-interface">
 					<div class="jp-controls">
 						<button class="jp-play" role="button" tabindex="0">play</button>
+						<button class="jp-pause" role="button" tabindex="0">pause</button>
 						<button class="jp-stop" role="button" tabindex="0">stop</button>
 					</div>
 					<div class="jp-progress">
