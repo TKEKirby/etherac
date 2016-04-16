@@ -8,12 +8,29 @@ angular.module('etherac')
 	$scope.songlibrary = [];
 
 	/*
-	* Set up playlist variables and initiate new jPlayerPlaylist
+	* Set up jPlayerPlaylist variables
 	*/
-	var cssSelector = { jPlayer: '#jquery_jplayer_1', cssSelectorAncestor: '#jp_container_1' };
-	var playlist = [];
-	var options = { swfPath: '/js', supplied: 'ogv, m4v, oga, mp3' };
-	$rootScope.nowPlaying = new jPlayerPlaylist(cssSelector, playlist, options);
+
+	$(document).ready(function(){
+
+		$rootScope.nowPlaying = new jPlayerPlaylist({
+			jPlayer: '#jquery_jplayer_1',
+			cssSelectorAncestor: '#jp_container_1'
+		},
+		$scope.songlibrary,
+		{
+			playlistOptions: {
+				enableRemoveControls: true
+			},
+			swfPath: '/bower_components/jPlayer/dist/jplayer/jquery.jplayer.swf',
+			supplied: 'webmv, ogv, m4v, oga, mp3',
+			useStateClassSkin: true,
+			autoBlur: false,
+			smoothPlayBar: true,
+			keyEnabled: true,
+			audioFullScreen: true
+		});
+});
 
 	/*
 	* Description:
@@ -21,43 +38,20 @@ angular.module('etherac')
 	* Params: none
 	* Return: none
 	*/
-  function startContinuousArtyom(){
-    artyom.fatality();// use this to stop any of
+	function startContinuousArtyom(){
+		artyom.fatality();// use this to stop any of
 
-    setTimeout(function(){// if you use artyom.fatality , wait 250 ms to initialize again.
-      artyom.initialize({
-        lang:'en-US',// A lot of languages are supported. Read the docs !
-        continuous:true,// Artyom will listen forever
-        listen:true, // Start recognizing
-        debug:true, // Show everything in the console
-        speed:'1' // talk normally
-      });
-      SpeechService.setupSpeech();
-    },250);
-  }
-
-	/*
-	* Description:
-	* Prepare the jPlayer on page load
-	* Params: none
-	* Return: none
-	*/
-	$(document).ready(function(){
-		$('#jquery_jplayer_1').jPlayer({
-			ready: function () {
-				$(this).jPlayer('setMedia', {});
-			},
-			cssSelectorAncestor: '#jp_container_1',
-			swfPath: '/js',
-			supplied: 'mp3',
-			useStateClassSkin: true,
-			autoBlur: false,
-			smoothPlayBar: true,
-			keyEnabled: true,
-			remainingDuration: true,
-			toggleDuration: true
-		});
-	});
+		setTimeout(function(){// if you use artyom.fatality , wait 250 ms to initialize again.
+			artyom.initialize({
+				lang:'en-US',// A lot of languages are supported. Read the docs !
+				continuous:true,// Artyom will listen forever
+				listen:true, // Start recognizing
+				debug:true, // Show everything in the console
+				speed:'1' // talk normally
+			});
+			SpeechService.setupSpeech();
+		},250);
+	}
 
 	/*
 	* Description:
