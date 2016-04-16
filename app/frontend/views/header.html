@@ -14,16 +14,20 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
           <ul class="nav navbar-nav navbar-right">
-            <li ng-show="isSignedIn"><a href="/musicLib">Music Library</a></li>
+            <li ng-show="isSignedIn"><a href="/admin" class="fa fa-list-alt"></a></li>
+            <li ng-show="isSignedIn"><a href="/" class="fa fa-bell-o"></a></li>
+            <li ng-show="isSignedIn"><a href="/musicLib" class="fa fa-music"></a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ng-hide="isSignedIn">User <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ng-hide="isSignedIn">Sign In <span class="caret"></span></a>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ng-show="isSignedIn">{{currentUser.fullname}} <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li ng-hide="isSignedIn"><a href="#" ng-click="signupModal()">Sign Up</a></li>
-                <li ng-show="isSignedIn"><a href="/admin">Admin</a></li>
+                <li ng-hide="isSignedIn"><a href="#" ng-click="signupModal()" class="fa fa-user-plus">  Sign Up</a></li>
+                <li ng-show="isSignedIn"><a href="/admin" class="fa fa-list-alt">  Admin</a></li>
+                <li ng-show="isSignedIn"><a href="/" class="fa fa-bell-o">  Reminders</a></li>
+                <li ng-show="isSignedIn"><a href="/musicLib" class="fa fa-music">  Music</a></li>
                 <li role="separator" class="divider"></li>
-                <li ng-hide="isSignedIn"><a href="#" ng-click="signinModal()">Sign In</a></li>
-                <li ng-show="isSignedIn"><a href="#" ng-click="signout()">Signout</a></li>
+                <li ng-hide="isSignedIn"><a href="#" ng-click="signinModal()" class="fa fa-sign-in">  Sign In</a></li>
+                <li ng-show="isSignedIn"><a href="#" ng-click="signout()" class="fa fa-sign-out">  Signout</a></li>
               </ul>
             </li>
           </ul>

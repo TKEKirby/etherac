@@ -102,3 +102,7 @@ body {
 .musicLibrary {
   background-color:#28373e;
 }
+
+.songHover {
+  background-color: #1C272C;
+}

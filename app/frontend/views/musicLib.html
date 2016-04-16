@@ -9,7 +9,7 @@
 					<th class="albumColHead"><center>Album</center></th>
 					<th class="lengthColHead"><center>Length</center></th>
 				</tr>
-				<tr ng-repeat="song in songlibrary" ng-dblclick="addToNowPlaying(song)" class="musicLibsongs">
+				<tr ng-repeat="song in songlibrary" ng-dblclick="addToNowPlaying(song)" class="musicLibsongs"ng-class="{songHover: hover}"  ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 					<td class="titleCol">{{song.title}}</td>
 					<td class="artistCol">{{song.artist}}</td>
 					<td class="albumCol">{{song.album}}</td>
