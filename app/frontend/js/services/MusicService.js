@@ -35,7 +35,7 @@ angular.module('etherac').service('MusicService', ['$rootScope', '$http', '$q', 
 				title:song.title,
 				artist:song.artist,
 				mp3: '../songs/' + song.artist + '/' + song.album + '/' + song.file,
-				poster:''
+				poster:'../songs/' + song.artist + '/' + song.album + '/' + song.poster
 			});
 		},
 

@@ -9,7 +9,7 @@
 					<th class="albumColHead"><center>Album</center></th>
 					<th class="lengthColHead"><center>Length</center></th>
 				</tr>
-				<tr ng-repeat="song in songlibrary" ng-click="addToNowPlaying(song)" class="musicLibsongs">
+				<tr ng-repeat="song in songlibrary" ng-dblclick="addToNowPlaying(song)" class="musicLibsongs">
 					<td class="titleCol">{{song.title}}</td>
 					<td class="artistCol">{{song.artist}}</td>
 					<td class="albumCol">{{song.album}}</td>
@@ -58,7 +58,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="jp-playlist">
+					<div class="jp-playlist" style="height: 330px; overflow: auto;">
 						<ul>
 							<!-- The method Playlist.displayPlaylist() uses this unordered list -->
 							<li>&nbsp;</li>

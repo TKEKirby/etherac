@@ -1,7 +1,31 @@
 'use strict';
 
 angular.module('etherac').service('SpeechService', ['$rootScope','MusicService', function ($rootScope, MusicService) {
+	var compareSongTitles = function (title, songList) {
+		title = title.toLowerCase();
+		title = title.replace('-', ' ');
+		title = title.replace(',', '');
+		for (var i = 0; i < songList.length; i++) {
+			var songListTitle = songList[i].title.toString().toLowerCase();
+			songListTitle = songListTitle.toString().split(' (', 1);
+			songListTitle = songListTitle.toString().split(' ft', 1);
+			songListTitle = songListTitle.toString().split(' ft.', 1);
+			songListTitle = songListTitle.toString().split(' feat', 1);
+			songListTitle = songListTitle.toString().split(' with', 1);
+			songListTitle = songListTitle.toString().split(' w-', 1);
+			songListTitle = songListTitle.toString().replace(',', '');
+			songListTitle = songListTitle.toString();
+			if (title.includes(songListTitle)) {
+				return i;
+			} else if (songListTitle.includes(title)) {
+				return i;
+			}
+		}
+		return -1;
+	};
+
 	return {
+
 		setupSpeech:function(){
 
 			/*
@@ -106,22 +130,15 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					smart:true,
 					indexes:['play *'],
 					action:function(i,wildcard){
-						console.log(i,wildcard);
 						var str = wildcard.toString();
-						var musicLib = [];
-						str = str.toLowerCase();
-						str = str.replace(/-/g, ' ');
 						MusicService.readLibrary().then(function (res) {
 							if (res !== 'error') {
-								for (var i = 0; i < res.length; i++) {
-									musicLib[i] = res[i].title.toLowerCase();
-								}
-								console.log(str);
-								if(musicLib.indexOf(str.trim()) === -1){
+								var indexOfSong = compareSongTitles(str, res);
+								if(indexOfSong !== -1){
+									MusicService.addPlayToNowPlaying(res[indexOfSong]);
+								}else{
 									artyom.say('That is not a Song I have in the library.');
 									//artyom.say('No');
-								}else{
-									MusicService.addPlayToNowPlaying(res[musicLib.indexOf(str.trim())]);
 								}
 							}
 						});
@@ -135,20 +152,17 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 				*/
 				{
 					smart:true,
-					indexes:['add *'],
+					indexes:['play *'],
 					action:function(i,wildcard){
-						var musicLib = [];
-						wildcard = wildcard.toLowerCase();
-						wildcard = wildcard.replace(/-/g, ' ');
+						var str = wildcard.toString();
 						MusicService.readLibrary().then(function (res) {
 							if (res !== 'error') {
-								for (var i = 0; i < res.length; i++) {
-									musicLib[i] = res[i].title.toLowerCase();
-								}
-								if(musicLib.indexOf(wildcard.trim()) === -1){
-									artyom.say('That is not a Song I have in the library.');
+								var indexOfSong = compareSongTitles(str, res);
+								if(indexOfSong !== -1){
+									MusicService.addToNowPlaying(res[indexOfSong]);
 								}else{
-									MusicService.addToNowPlaying(res[musicLib.indexOf(wildcard.trim())]);
+									artyom.say('That is not a Song I have in the library.');
+									//artyom.say('No');
 								}
 							}
 						});

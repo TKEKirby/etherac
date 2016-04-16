@@ -1,90 +1,1181 @@
-db.Song.insert([
-                    {
-                        'title':'Never Ending Circles',
-                        'artist':'Chvrches',
-                        'album':'Every Open Eye',
-                        'length':'3:06',
-						'file':'01. Never Ending Circles.mp3',
-                        'playlist':[]
-                    },
-                    {
-                        'title':'Leave A Trace',
-                        'artist':'Chvrches',
-                        'album':'Every Open Eye',
-                        'length':'3:57',
-						'file':'02. Leave A Trace.mp3',
-                        'playlist':[]
-                    },
-                    {
-                        'title':'Keep You On My Side',
-                        'artist':'Chvrches',
-                        'album':'Every Open Eye',
-                        'length':'4:26',
-                        'owner':'',
-						'file':'03. Keep You On My Side.mp3',
-                        'playlist':[]
-                    },
-                    {
-                        'title':'Make Them Gold',
-                        'artist':'Chvrches',
-                        'album':'Every Open Eye',
-                        'length':'3:51',
-						'file':'04. Make Them Gold.mp3',
-                        'playlist':[]
-                    },
-                    {
-                        'title':'Clearest Blue',
-                        'artist':'Chvrches',
-                        'album':'Every Open Eye',
-                        'length':'3:53',
-						'file':'05. Clearest Blue.mp3',
-                        'playlist':[]
-                    },
-                    {
-                        'title':'High Enough To Carry You Over',
-                        'artist':'Chvrches',
-                        'album':'Every Open Eye',
-                        'length':'3:39',
-						'file':'06. High Enough To Carry You Over.mp3',
-                        'playlist':[]
-                    },
-                    {
-                        'title':'Empty Threat',
-                        'artist':'Chvrches',
-                        'album':'Every Open Eye',
-                        'length':'4:04',
-						'file':'07. Empty Threat.mp3',
-                        'playlist':[]
-                    },
-                    {
-                        'title':'Down Side Of Me',
-                        'artist':'Chvrches',
-                        'album':'Every Open Eye',
-                        'length':'5:10',
-						'file':'08. Down Side Of Me.mp3',
-                        'playlist':[]
-                    },
-                    {
-                        'title':'Playing Dead',
-                        'artist':'Chvrches',
-                        'album':'Every Open Eye',
-                        'length':'3:35',
-						'file':'09. Playing Dead.mp3',
-                        'playlist':[]
-                    },
-                    {
-                        'title':'Bury It',
-                        'artist':'Chvrches',
-                        'album':'Every Open Eye',
-                        'length':'3:08',
-						'file':'10. Bury It.mp3',
-                        'playlist':[]
-                    },
-                    {
-                        'title':'Afterglow',
-                        'artist':'Chvrches',
-                        'album':'Every Open Eye',
-                        'length':'3:14',
-						'file':'11. Afterglow.mp3',
-                        'playlist':[]
-                    }]);
+db.songs.insert([
+  {
+    'title':'Never Ending Circles',
+    'artist':'Chvrches',
+    'album':'Every Open Eye',
+    'length':'3:06',
+    'file':'01. Never Ending Circles.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Leave A Trace',
+    'artist':'Chvrches',
+    'album':'Every Open Eye',
+    'length':'3:57',
+    'file':'02. Leave A Trace.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Keep You On My Side',
+    'artist':'Chvrches',
+    'album':'Every Open Eye',
+    'length':'4:26',
+    'owner':'',
+    'file':'03. Keep You On My Side.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Make Them Gold',
+    'artist':'Chvrches',
+    'album':'Every Open Eye',
+    'length':'3:51',
+    'file':'04. Make Them Gold.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Clearest Blue',
+    'artist':'Chvrches',
+    'album':'Every Open Eye',
+    'length':'3:53',
+    'file':'05. Clearest Blue.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'High Enough To Carry You Over',
+    'artist':'Chvrches',
+    'album':'Every Open Eye',
+    'length':'3:39',
+    'file':'06. High Enough To Carry You Over.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Empty Threat',
+    'artist':'Chvrches',
+    'album':'Every Open Eye',
+    'length':'4:04',
+    'file':'07. Empty Threat.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Down Side Of Me',
+    'artist':'Chvrches',
+    'album':'Every Open Eye',
+    'length':'5:10',
+    'file':'08. Down Side Of Me.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Playing Dead',
+    'artist':'Chvrches',
+    'album':'Every Open Eye',
+    'length':'3:35',
+    'file':'09. Playing Dead.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Bury It',
+    'artist':'Chvrches',
+    'album':'Every Open Eye',
+    'length':'3:08',
+    'file':'10. Bury It.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Afterglow',
+    'artist':'Chvrches',
+    'album':'Every Open Eye',
+    'length':'3:14',
+    'file':'11. Afterglow.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Preposterously Dank',
+    'artist':'Spose',
+    'album':'Preposterously Dank',
+    'length':'3:32',
+    'file':'01. Preposterously Dank.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'John Madden',
+    'artist':'Spose',
+    'album':'Preposterously Dank',
+    'length':'3:50',
+    'file':'03. John Madden.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Drugs, Girls, Money, Liquor Who Got Smoke',
+    'artist':'Spose',
+    'album':'Preposterously Dank',
+    'length':'4:12',
+    'file':'04. Drugs, Girls, Money, Liquor Who Got Smoke.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Gobble a Dank',
+    'artist':'Spose',
+    'album':'Preposterously Dank',
+    'length':'4:16',
+    'file':'05. Gobble a Dank.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Under Control',
+    'artist':'Spose',
+    'album':'Preposterously Dank',
+    'length':'3:41',
+    'file':'06. Under Control.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'God Damn',
+    'artist':'Spose',
+    'album':'Preposterously Dank',
+    'length':'5:29',
+    'file':'07. God Damn.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Just an Emcee II',
+    'artist':'Spose',
+    'album':'Preposterously Dank',
+    'length':'3:39',
+    'file':'08. Just an Emcee II.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'To the Head',
+    'artist':'Spose',
+    'album':'Preposterously Dank',
+    'length':'3:21',
+    'file':'09. To the Head.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'That\'s That',
+    'artist':'Spose',
+    'album':'Preposterously Dank',
+    'length':'4:14',
+    'file':'10. That\'s That.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Outro',
+    'artist':'Spose',
+    'album':'Preposterously Dank',
+    'length':'7:23',
+    'file':'11. Outro.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'It\'s Alright With Me',
+    'artist':'Spose',
+    'album':'Preposterously Dank',
+    'length':'3:35',
+    'file':'12. It\'s Alright With Me.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Blow My Candle Out',
+    'artist':'Spose',
+    'album':'The Audacity!',
+    'length':'5:02',
+    'file':'01. Blow My Candle Out.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'2002',
+    'artist':'Spose',
+    'album':'The Audacity!',
+    'length':'3:19',
+    'file':'02. 2002.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Knocking on Wood',
+    'artist':'Spose',
+    'album':'The Audacity!',
+    'length':'3:28',
+    'file':'03. Knocking on Wood.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Gee Willikers',
+    'artist':'Spose',
+    'album':'The Audacity!',
+    'length':'4:35',
+    'file':'04. Gee Willikers.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Million Dollar Bill',
+    'artist':'Spose',
+    'album':'The Audacity!',
+    'length':'4:00',
+    'file':'05. Million Dollar Bill.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Brain Not a Chain',
+    'artist':'Spose',
+    'album':'The Audacity!',
+    'length':'6:06',
+    'file':'06. Brain Not a Chain.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Jimmy!',
+    'artist':'Spose',
+    'album':'The Audacity!',
+    'length':'4:15',
+    'file':'07. Jimmy!.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Smiley Face',
+    'artist':'Spose',
+    'album':'The Audacity!',
+    'length':'5:09',
+    'file':'08. Smiley Face.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Swagless',
+    'artist':'Spose',
+    'album':'The Audacity!',
+    'length':'4:40',
+    'file':'09. Swagless.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'My Love in You',
+    'artist':'Spose',
+    'album':'The Audacity!',
+    'length':'3:15',
+    'file':'10. My Love in You.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'In Conclusion',
+    'artist':'Spose',
+    'album':'The Audacity!',
+    'length':'3:26',
+    'file':'11. In Conclusion.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Salami',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'3:11',
+    'file':'01. Salami.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'King Of Maine',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'4:16',
+    'file':'02. King Of Maine.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'All Rs',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'3:15',
+    'file':'03. All Rs.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'03 Altima',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'4:24',
+    'file':'04. 03 Altima.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'I\'m Starving',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'3:48',
+    'file':'05. I\'m Starving.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'In Your Dreams',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'3:51',
+    'file':'06. In Your Dreams.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Hipsterlude',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'1:27',
+    'file':'07. Hipsterlude.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'The Peoples\' Douche',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'3:32',
+    'file':'08. The Peoples\' Douche.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'19',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'4:00',
+    'file':'09. 19.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Cows Come Home',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'3:13',
+    'file':'10. Cows Come Home.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Fresh Raps',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'2:13',
+    'file':'11. Fresh Raps.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Still Bimpin\'',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'5:21',
+    'file':'12. Still Bimpin\'.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Bob Johnson',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'4:10',
+    'file':'13. Bob Johnson.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'I\'m Done',
+    'artist':'Spose',
+    'album':'The Peter Sparker Mixtape',
+    'length':'4:11',
+    'file':'14. I\'m Done.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Just An Introduction (All That)',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'3:32',
+    'file':'01. Just An Introduction (All That).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Set On You',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'2:42',
+    'file':'02. Set On You.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Molly Ringwald',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'5:37',
+    'file':'03. Molly Ringwald.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Drugs, Girls, Money, and Liquor (2010 version)',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'4:47',
+    'file':'04. Drugs, Girls, Money, and Liquor (2010 version).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'God Damn (2010 version)',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'3:40',
+    'file':'05. God Damn (2010 version).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Never Be Alone',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'4:50',
+    'file':'06. Never Be Alone.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Don\'t Let This Be Over',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'3:59',
+    'file':'07. Don\'t Let This Be Over.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Party Foul (Alternate Version ft. Rome of Sublime with Rome)',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'3:46',
+    'file':'08. Party Foul (Alternate Version ft. Rome of Sublime with Rome).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'John Madden (2010 version ft. Cam Groves)',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'3:49',
+    'file':'09. John Madden (2010 version ft. Cam Groves).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'The Morning After',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'2:41',
+    'file':'10. The Morning After.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Hate That I Love You',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'1:43',
+    'file':'11. Hate That I Love You.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'They Tell Us',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'2:59',
+    'file':'12. They Tell Us.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Bi Winning (Charlie Sheen Parody)',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'2:55',
+    'file':'13. Bi Winning (Charlie Sheen Parody).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'White Limousine',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'1:14',
+    'file':'14. White Limousine.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Elegant G (ft. Altered G)',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'2:39',
+    'file':'15. Elegant G (ft. Altered G).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Crave The Change (ft. BoomVox)',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'4:43',
+    'file':'16. Crave The Change (ft. BoomVox).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Does Not Suck',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'1:38',
+    'file':'17. Does Not Suck.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Fuck Yourself',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'2:00',
+    'file':'18. Fuck Yourself.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Weakest Party (ft. The Cataracs)',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'2:19',
+    'file':'19. Weakest Party (ft. The Cataracs).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Smoke You Down',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'2:45',
+    'file':'20. Smoke You Down.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Pigs Wanna Breathalize (ft. Ryan Augustus and Shane Reis)',
+    'artist':'Spose',
+    'album':'The Yard Sale',
+    'length':'2:39',
+    'file':'21. Pigs Wanna Breathalize (ft. Ryan Augustus and Shane Reis).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Oh Hey',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'1:37',
+    'file':'01. Oh Hey.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Wells, Maine in the House',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'3:15',
+    'file':'02. Wells, Maine in the House.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Boning & Smoking Chronic',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'2:20',
+    'file':'03. Boning & Smoking Chronic.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'A Dude Named Spose',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'3:11',
+    'file':'04. A Dude Named Spose.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Stand Still',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'3:07',
+    'file':'05. Stand Still.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Fast Food Pabst Blue',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'1:09',
+    'file':'07. Fast Food Pabst Blue.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Hate My Job',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'3:35',
+    'file':'08. Hate My Job.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'A Way With Words',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'3:46',
+    'file':'09. A Way With Words.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Live From 2009',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'1:36',
+    'file':'10. Live From 2009.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Run',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'3:49',
+    'file':'11. Run.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Born in the Burbs',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'3:47',
+    'file':'12. Born in the Burbs.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Still Preposterous',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'3:16',
+    'file':'13. Still Preposterous.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Sexy John Madde',
+    'artist':'Spose',
+    'album':'We Smoked It All',
+    'length':'4:57',
+    'file':'14. Sexy John Madden.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'A Moment of Silence',
+    'artist':'The Neighbourhood',
+    'album':'Wiped Out!',
+    'length':':30',
+    'file':'01. A Moment of Silence.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Prey',
+    'artist':'The Neighbourhood',
+    'album':'Wiped Out!',
+    'length':'4:42',
+    'file':'02. Prey.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Cry Baby',
+    'artist':'The Neighbourhood',
+    'album':'Wiped Out!',
+    'length':'3:55',
+    'file':'03. Cry Baby.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Wiped Out!',
+    'artist':'The Neighbourhood',
+    'album':'Wiped Out!',
+    'length':'6:13',
+    'file':'04. Wiped Out!.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'The Beach',
+    'artist':'The Neighbourhood',
+    'album':'Wiped Out!',
+    'length':'4:15',
+    'file':'05. The Beach.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Daddy Issues',
+    'artist':'The Neighbourhood',
+    'album':'Wiped Out!',
+    'length':'4:20',
+    'file':'06. Daddy Issues.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Baby Came Home 2 ／ Valentines',
+    'artist':'The Neighbourhood',
+    'album':'Wiped Out!',
+    'length':'6:30',
+    'file':'07. Baby Came Home 2 ／ Valentines.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Greetings from Califournia',
+    'artist':'The Neighbourhood',
+    'album':'Wiped Out!',
+    'length':'4:04',
+    'file':'08. Greetings from Califournia.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Ferrari',
+    'artist':'The Neighbourhood',
+    'album':'Wiped Out!',
+    'length':'3:04',
+    'file':'09. Ferrari.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Single',
+    'artist':'The Neighbourhood',
+    'album':'Wiped Out!',
+    'length':'4:22',
+    'file':'10. Single.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'R.I.P. 2 My Youth',
+    'artist':'The Neighbourhood',
+    'album':'Wiped Out!',
+    'length':'3:25',
+    'file':'11. R.I.P. 2 My Youth.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'All You Can Do',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'4:06',
+    'file':'01. All You Can Do.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Stand for Something',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'2:30',
+    'file':'02. Stand for Something.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Bet Against Me',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'3:09',
+    'file':'03. Bet Against Me.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Whoa Whoa Whoa',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'3:07',
+    'file':'04. Whoa Whoa Whoa.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Ink Don\'t Bleed',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'3:34',
+    'file':'05. Ink Don\'t Bleed.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Right Now',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'3:14',
+    'file':'06. Right Now.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'My First Stalker',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'1:30',
+    'file':'07. My First Stalker.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'The One',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'2:55',
+    'file':'08. The One.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Boomerang',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'2:51',
+    'file':'09. Boomerang.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Let\'s Get High and Watch Planet Earth',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'3:24',
+    'file':'10. Let\'s Get High and Watch Planet Earth.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Hand Over Hand',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'4:38',
+    'file':'11. Hand Over Hand.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Tears to Diamonds',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'3:24',
+    'file':'12. Tears to Diamonds.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Grass Is Greener',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'3:44',
+    'file':'13. Grass Is Greener.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Never Let It Die',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'5:06',
+    'file':'14. Never Let It Die.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Sarajevo',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'3:43',
+    'file':'15. Sarajevo.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Cannonball',
+    'artist':'Watsky',
+    'album':'All You Can Do',
+    'length':'6:41',
+    'file':'16. Cannonball.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Fireworks',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'2:32',
+    'file':'01. Fireworks.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Strong As An Oak',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'4:19',
+    'file':'02. Strong As An Oak.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Moral Of The Story',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'4:00',
+    'file':'03. Moral Of The Story.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Ugly Faces',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'2:55',
+    'file':'04. Ugly Faces.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Skit #1',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'0:37',
+    'file':'05. Skit #1.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Kill A Hipster (Feat. Chinaka Hodge)',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'4:25',
+    'file':'06. Kill A Hipster (Feat. Chinaka Hodge).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Hey, Asshole (Feat. Kate Nash)',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'4:07',
+    'file':'07. Hey, Asshole (Feat. Kate Nash).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'All I Need Is One',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'3:46',
+    'file':'08. All I Need Is One.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Tiny Glowing Screens, Part 1',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'4:55',
+    'file':'09. Tiny Glowing Screens, Part 1.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Tiny Glowing Screens, Part 2',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'2:44',
+    'file':'10. Tiny Glowing Screens, Part 2.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Sloppy Seconds',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'4:05',
+    'file':'11. Sloppy Seconds.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Dedicated To Christina Li',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'5:35',
+    'file':'12. Dedicated To Christina Li.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Skit #2',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'1:14',
+    'file':'13. Skit #2.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'The Legend Of Hardhead Ned (Feat. Dylan Saunders)',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'3:48',
+    'file':'14. The Legend Of Hardhead Ned (Feat. Dylan Saunders).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Cardboard Castles',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'4:08',
+    'file':'15. Cardboard Castles.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Send In The Sun',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'4:21',
+    'file':'16. Send In The Sun.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Dent In The Moon (Hidden Bonus Track)',
+    'artist':'Watsky',
+    'album':'Cardboard Castles',
+    'length':'4:33',
+    'file':'17. Dent In The Moon (Hidden Bonus Track).mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Mody on the Turnpike',
+    'artist':'Watsky',
+    'album':'Watsky & Mody',
+    'length':'1:06',
+    'file':'01. Mody on the Turnpike.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Man of Constant Sorrow ft. Dylan Saunders',
+    'artist':'Watsky',
+    'album':'Watsky & Mody',
+    'length':'5:31',
+    'file':'02. Man of Constant Sorrow ft. Dylan Saunders.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Kick Monday ft. Wax',
+    'artist':'Watsky',
+    'album':'Watsky & Mody',
+    'length':'4:57',
+    'file':'03. Kick Monday ft. Wax.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':' Mrs. Robinson ft. Danny McClain',
+    'artist':'Watsky',
+    'album':'Watsky & Mody',
+    'length':'5:18',
+    'file':'04. Mrs. Robinson ft. Danny McClain.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Ghost Party w- Mieka Pauley',
+    'artist':'Watsky',
+    'album':'Watsky & Mody',
+    'length':'5:33',
+    'file':'05. Ghost Party w- Mieka Pauley.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  },
+  {
+    'title':'Mody at the Divebar',
+    'artist':'Watsky',
+    'album':'Watsky & Mody',
+    'length':'2:29',
+    'file':'06. Mody at the Divebar.mp3',
+    'playlist':[],
+    'poster': 'Folder.jpg'
+  }]);
