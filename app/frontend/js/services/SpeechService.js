@@ -187,18 +187,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 				},
 
 				/*
-				* Command Description:
-				* Command:
-				* Response:
-				*/
-				{
-					indexes:['What should the dogs do right now'],
-					action:function(){
-						artyom.say('The dogs should, calm, the fuck down');
-					}
-				},
-
-				/*
 				* Begin Music Commands
 				*/
 
@@ -283,6 +271,29 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 				* Response:
 				*/
 				{
+					indexes:['Yo dj spin that'],
+					action:function(){
+						MusicService.readLibrary().then(function (res) {
+							if (res !== 'error') {
+								for (var i = 0; i < res.length; i++) {
+									MusicService.addToNowPlaying(res[i]);
+								}
+								MusicService.shuffleNowPlaying();
+								MusicService.playNowPlaying();
+							}else{
+								artyom.say('I don\'t see, to have any songs');
+								//artyom.say('No');
+							}
+						});
+					}
+				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
+				{
 					indexes:['pause', 'stop'],
 					action:function(){
 						MusicService.pauseNowPlaying();
@@ -310,6 +321,30 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					indexes:['play'],
 					action:function(){
 						MusicService.playNowPlaying();
+					}
+				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
+				{
+					indexes:['clear playlist', 'clear now playing', 'start a new playlist', 'empty now playing'],
+					action:function(){
+						MusicService.clearNowPlaying();
+					}
+				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
+				{
+					indexes:['shuffle playlist', 'shuffle now playing', 'mix it up', 'randomize'],
+					action:function(){
+						MusicService.shuffleNowPlaying();
 					}
 				}
 

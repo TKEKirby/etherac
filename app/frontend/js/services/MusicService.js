@@ -82,6 +82,26 @@ angular.module('etherac').service('MusicService', ['$rootScope', '$http', '$q', 
 		*/
 		playNowPlaying:function(){
 			$rootScope.nowPlaying.play();
+		},
+
+		/*
+		* Description:
+		*
+		* Params: none
+		* Return: none
+		*/
+		shuffleNowPlaying:function(){
+			$rootScope.nowPlaying.shuffle(true);
+		},
+
+		/*
+		* Description:
+		*
+		* Params: none
+		* Return: none
+		*/
+		clearNowPlaying:function(){
+			$rootScope.nowPlaying.remove();
 		}
 
 };
