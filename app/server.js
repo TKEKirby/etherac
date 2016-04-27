@@ -14,7 +14,13 @@ var express 	= require('express');
 var app 		  = require('./backend/app');
 var path 		  = require('path');
 var logger 		= require('morgan');
+var https 		= require('https');
 var config		= JSON.parse(fs.readFileSync(path.join(__dirname, './config.json'), 'utf8'));
+
+var options = {
+  key: fs.readFileSync('app/certs/server.key'),
+  cert: fs.readFileSync('app/certs/server.crt')
+};
 
 
 /**
@@ -67,6 +73,6 @@ else {
 
 
 // All configuration is done, gonna listen to hostname:port...
-app.listen(app.get('port'), app.get('host'), function (){
+https.createServer(options, app).listen(app.get('port'), app.get('host'), function (){
 	console.log('Server in '+app.get('env')+' environment running at '+app.get('host')+':'+app.get('port'));
 });

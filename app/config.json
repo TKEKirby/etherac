@@ -1,7 +1,7 @@
 {
 	"development": {
 
-		"host": "localhost",
+		"host": "0.0.0.0",
 
 		"port": 8080,
 
@@ -11,7 +11,7 @@
 
 		"database": {
 
-			"name": "test",
+			"name": "etheracDB",
 
 			"host": "localhost",
 
@@ -26,7 +26,7 @@
 
 	"production": {
 
-		"host": "localhost",
+		"host": "0.0.0.0",
 
 		"port": 8080,
 
@@ -36,9 +36,9 @@
 
 		"database": {
 
-			"name": "test",
+			"name": "etheracDB",
 
-			"host": "localhost",
+			"host": "192.168.0.2",
 
 			"port": 27017,
 

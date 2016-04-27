@@ -6,7 +6,8 @@ var app = angular.module('etherac', [
   'ngCookies',
   'ngTouch',
   'ngSanitize',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngFileUpload'
 ]);
 
 

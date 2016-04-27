@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('etherac')
-.controller('MusicLibCtrl', ['$rootScope', '$scope', '$http', '$window', 'SpeechService', 'MusicService', function($rootScope, $scope, $http, $window, SpeechService, MusicService) {
+
+.controller('MusicLibCtrl', ['$rootScope', '$scope', '$http', '$timeout', '$window', 'SpeechService', 'MusicService', 'Upload', function($rootScope, $scope, $http, $timeout, $window, SpeechService, MusicService, Upload) {
 
 	$rootScope.pageTitle = $rootScope.currentUser.fullname + '| Music Library';
 	$scope.errorMessage = '';
@@ -96,6 +97,36 @@ angular.module('etherac')
 	$scope.addToNowPlaying = function (song) {
 		MusicService.addToNowPlaying(song);
 	};
+
+
+	/*
+	* Description:
+	* Use ng-file-upload to ad songs to library
+	* Params: file to upload
+	* Return: none
+	*/
+	$scope.uploadFiles = function (files) {
+	        $scope.files = files;
+	        if (files && files.length) {
+	            Upload.upload({
+	                url: '../songs/',
+	                data: {
+	                    files: files
+	                }
+	            }).then(function (response) {
+	                $timeout(function () {
+	                    $scope.result = response.data;
+	                });
+	            }, function (response) {
+	                if (response.status > 0) {
+	                    $scope.errorMsg = response.status + ': ' + response.data;
+	                }
+	            }, function (evt) {
+	                $scope.progress =
+	                    Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+	            });
+	        }
+	    };
 
 
 	readLibrary();
