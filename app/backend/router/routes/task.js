@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
-var Model= mongoose.model('Task');
+var Model = mongoose.model('Task');
 
 module.exports = function (isLoggedIn) {
 
@@ -56,7 +56,7 @@ module.exports = function (isLoggedIn) {
 				return res.status(200).send(data);
 			});
 		});
-	});	
+	});
 
 	router.delete('/:id', isLoggedIn, function (req, res) {
 		Model.findById(req.params.id, function (err, data) {
@@ -71,9 +71,9 @@ module.exports = function (isLoggedIn) {
 					return res.status(500).send(err);
 				}
 				return res.status(200).end();
-			});				
+			});
 		});
-	});	
+	});
 
 	return router;
 

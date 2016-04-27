@@ -10,12 +10,14 @@
       </div>
 
       <div class="col-md-4 col-md-offset-4">
-        <h1><img src="{{weather.icon}}" style="width:160px">{{weather.main.temp}} &#8457</h1>
+        <h4>{{weather.summary}}</h4>
+        <h1><img src="{{weather.icon}}" style="width:160px">{{weather.apparentTemperature}} &#8457</h1>
         <center>
-          <h4>{{weather.main.humidity}}% Humidity</h4>
-          <h4>Wind speed {{weather.wind.speed}}</h4>
+          <h4>{{weather.humidity}}% Humidity</h4>
+          <h4>Wind speed {{weather.windSpeed}}</h4>
+          <h4>Chance of Percipitation {{weather.precipProbability}}%</h4>
           <h3>Sunrise/Sunset</h3>
-          <h4>{{weather.sunrise.hours}}:{{weather.sunrise.min}} AM/ {{weather.sunset.hours}}:{{weather.sunset.min}} PM</h4>
+          <h4>{{weather.sunrise}} AM/ {{weather.sunset}} PM</h4>
         </center>
       </div>
 

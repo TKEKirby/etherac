@@ -14,30 +14,8 @@ angular.module('etherac').service('DataService', ['$q', '$http', 'ApiService',fu
 			var weather = {};
 			ApiService.getweather(userlocation).then(function (response) {
 				weather = response;
-				weather.sunrise = {};
-				weather.sunset = {};
-				weather.main.temp = weather.main.temp * 9 / 5 - 459.67;
-				weather.main.temp = weather.main.temp.toFixed([1]);
-				var sunrise = new Date(weather.sys.sunrise * 1000);
-				weather.sunrise.hours = sunrise.getHours();
-				if (sunrise.getMinutes() < 10) {
-					weather.sunrise.min = '0';
-					weather.sunrise.min += sunrise.getMinutes().toString();
-				}
-				else {
-					weather.sunrise.min = sunrise.getMinutes().toString();
-				}
-				var sunset = new Date(weather.sys.sunset * 1000);
-				weather.sunset.hours = sunset.getHours() - 12;
-				weather.sunset.min = sunset.getMinutes();
-				if (sunset.getMinutes() < 10) {
-					weather.sunset.min = '0';
-					weather.sunset.min += sunset.getMinutes().toString();
-				}
-				else {
-					weather.sunset.min = sunset.getMinutes().toString();
-				}
-				weather.icon = '../img/weatherIcons/' + weather.weather[0].icon + '.png';
+				weather.currently.apparentTemperature = weather.currently.apparentTemperature.toFixed([1]);
+				weather.currently.icon = '../img/weatherIcons/' + weather.currently.icon + '.png';
 				deferred.resolve(weather);
 			});
 			return deferred.promise;

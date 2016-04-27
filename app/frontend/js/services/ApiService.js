@@ -10,6 +10,29 @@ angular.module('etherac').service('ApiService', ['$q', '$http',function ($q,$htt
 		* Return: response
 		*/
 		getweather:function(userlocation){
+			console.log(userlocation);
+			var deferred = $q.defer();
+			$http.post('/forecast/', userlocation).success(function (forecastRes) {
+				console.log(forecastRes);
+				deferred.resolve(forecastRes);
+			}).error(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		}
+
+
+
+
+
+
+
+		/*
+		* Description:
+		* Get weather from openweathermap.org.
+		* Params: userlocation - The location object containing lat and lon (fixed point)
+		* Return: response
+		getweather:function(userlocation){
 			var options = {
 				method: 'GET',
 				url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + userlocation.lat + '&lon=' + userlocation.lon + '&APPID=996ec6ab54f154e527d67560677fe374',
@@ -25,6 +48,9 @@ angular.module('etherac').service('ApiService', ['$q', '$http',function ($q,$htt
 			});
 			return deferred.promise;
 		}
+		*/
+
+
 	};
 }
 ]);
