@@ -10,21 +10,14 @@ angular.module('etherac').service('ApiService', ['$q', '$http',function ($q,$htt
 		* Return: response
 		*/
 		getweather:function(userlocation){
-			console.log(userlocation);
 			var deferred = $q.defer();
 			$http.post('/forecast/', userlocation).success(function (forecastRes) {
-				console.log(forecastRes);
 				deferred.resolve(forecastRes);
 			}).error(function (error) {
 				deferred.reject(error);
 			});
 			return deferred.promise;
 		}
-
-
-
-
-
 
 
 		/*
@@ -49,7 +42,6 @@ angular.module('etherac').service('ApiService', ['$q', '$http',function ($q,$htt
 			return deferred.promise;
 		}
 		*/
-
 
 	};
 }

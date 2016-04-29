@@ -3,14 +3,6 @@
 angular.module('etherac')
 .controller('MainCtrl', ['$rootScope', '$interval', 'ApiService', 'DataService', 'SpeechService', function ($rootScope,$interval,ApiService,DataService,SpeechService) {
 
-  var getTimeString = function(t){
-    console.log(t);
-    var time = new Date(t);
-    console.log(time);
-    return new Date(time);
-  };
-
-
   /*
 	* Description:
 	* Kill previous Artyom instances and start fresh
@@ -51,8 +43,10 @@ angular.module('etherac')
           $rootScope.today = response.daily.data[0];
           $rootScope.tomorrow = response.daily.data[1];
 
-          $rootScope.sunrise = getTimeString($rootScope.today.sunriseTime);
-          $rootScope.sunset = getTimeString($rootScope.today.sunsetTime);
+          $rootScope.weather.sunData = DataService.getSunInfo($rootScope.today);
+
+          //$rootScope.weather.sunrise = getTimeString($rootScope.today.sunriseTime);
+          //$rootScope.weather.sunset = getTimeString($rootScope.today.sunsetTime);
         });
       });
     });
@@ -77,7 +71,6 @@ angular.module('etherac')
     }, 1000
   );
 
-
   $rootScope.pageTitle = 'Homepage';
   $rootScope.curTime = {};
   $rootScope.curTime.time = DataService.getTime();
@@ -86,7 +79,5 @@ angular.module('etherac')
   $rootScope.curTime.month = DataService.getMonth();
   $rootScope.curTime.year = DataService.getYear();
 
-
   startContinuousArtyom();
-
 }]);

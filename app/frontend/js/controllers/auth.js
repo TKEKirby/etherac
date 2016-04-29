@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('etherac')
-	.controller('HeaderCtrl', function ($scope, $modal, $http, $window, $cookieStore) {	
-
+	.controller('HeaderCtrl', function ($scope, $modal, $http, $window, $cookieStore) {
 
 		var isRemembered = function ($q, $cookies, $http, $timeout, $location, $cookieStore) {
             var deferred = $q.defer();
@@ -70,7 +69,7 @@ angular.module('etherac')
 		$scope.cancel = function () {
 		    $modalInstance.dismiss('cancel');
 		};
-		
+
  	});
 
 angular.module('etherac')
@@ -90,4 +89,3 @@ angular.module('etherac')
 		    $modalInstance.dismiss('cancel');
 		};
  	});
-

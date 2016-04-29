@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('etherac').service('SpeechService', ['$rootScope','MusicService', function ($rootScope, MusicService) {
+angular.module('etherac').service('SpeechService', ['$rootScope','MusicService','DataService', function ($rootScope, MusicService, DataService) {
 
 	var titlePlayCommandList = [];
 	var titleAddCommandList = [];
@@ -134,7 +134,7 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 				{
 					indexes:['Are you awake','You up','Are you there','Are you up'],
 					action:function(){
-						artyom.say('For you sir always');
+						artyom.say('For you sir, always');
 					}
 				},
 
@@ -144,9 +144,23 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 				* Response:
 				*/
 				{
-					indexes:['What time is sunset'],
+					indexes:['What time is sunset','When is sunset','When will the sun be setting today'],
 					action:function(){
-						artyom.say('Sunset is at ' + $rootScope.weather.sunset.hours + ' ' + $rootScope.weather.sunset.min + 'PM');
+						if (navigator.geolocation) {
+					    navigator.geolocation.getCurrentPosition(function(position){
+					      $rootScope.$apply(function(){
+					        var pos = {
+					          lat : position.coords.latitude.toFixed(),
+					          lon : position.coords.longitude.toFixed()
+					        };
+					        DataService.getWeather(pos).then(function (response) {
+					          var today = response.daily.data[0];
+					          var sunData = DataService.getSunInfo(today);
+										artyom.say('Sunset is at ' + sunData.sunsetTime + 'PM');
+					        });
+					      });
+					    });
+					  }
 					}
 				},
 
@@ -156,9 +170,23 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 				* Response:
 				*/
 				{
-					indexes:['What time is sunrise'],
+					indexes:['What time is sunrise','When is sunrise','When will the sun be rising today'],
 					action:function(){
-						artyom.say('Sunrise is at ' + $rootScope.weather.sunrise.hours + ' ' + $rootScope.weather.sunrise.min + 'AM');
+						if (navigator.geolocation) {
+					    navigator.geolocation.getCurrentPosition(function(position){
+					      $rootScope.$apply(function(){
+					        var pos = {
+					          lat : position.coords.latitude.toFixed(),
+					          lon : position.coords.longitude.toFixed()
+					        };
+					        DataService.getWeather(pos).then(function (response) {
+					          var today = response.daily.data[0];
+					          var sunData = DataService.getSunInfo(today);
+										artyom.say('Sunrise is at ' + sunData.sunriseTime + 'AM');
+					        });
+					      });
+					    });
+					  }
 					}
 				},
 
@@ -170,7 +198,95 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 				{
 					indexes:['What\'s the temperature', 'What is the temperature'],
 					action:function(){
-						artyom.say('It is ' + parseInt($rootScope.weather.main.temp) + 'degrees outside right now.');
+						if (navigator.geolocation) {
+					    navigator.geolocation.getCurrentPosition(function(position){
+					      $rootScope.$apply(function(){
+					        var pos = {
+					          lat : position.coords.latitude.toFixed(),
+					          lon : position.coords.longitude.toFixed()
+					        };
+					        DataService.getWeather(pos).then(function (response) {
+					          var weather = response.currently;
+										artyom.say('It is ' + parseInt(weather.apparentTemperature) + 'degrees outside right now.');
+					        });
+					      });
+					    });
+					  }
+					}
+				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
+				{
+					indexes:['What\'s the forecast today', 'What is the forecast today'],
+					action:function(){
+						if (navigator.geolocation) {
+					    navigator.geolocation.getCurrentPosition(function(position){
+					      $rootScope.$apply(function(){
+					        var pos = {
+					          lat : position.coords.latitude.toFixed(),
+					          lon : position.coords.longitude.toFixed()
+					        };
+					        DataService.getWeather(pos).then(function (response) {
+					          var today = response.daily.data[0];
+										artyom.say(today.summary);
+					        });
+					      });
+					    });
+					  }
+					}
+				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
+				{
+					indexes:['What\'s the forecast tomorrow', 'What is the forecast tomorrow'],
+					action:function(){
+						if (navigator.geolocation) {
+					    navigator.geolocation.getCurrentPosition(function(position){
+					      $rootScope.$apply(function(){
+					        var pos = {
+					          lat : position.coords.latitude.toFixed(),
+					          lon : position.coords.longitude.toFixed()
+					        };
+					        DataService.getWeather(pos).then(function (response) {
+					          var tomorrow = response.daily.data[1];
+										artyom.say(tomorrow.summary);
+					        });
+					      });
+					    });
+					  }
+					}
+				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
+				{
+					indexes:['What\'s the forecast this week', 'What is the forecast this week'],
+					action:function(){
+						if (navigator.geolocation) {
+					    navigator.geolocation.getCurrentPosition(function(position){
+					      $rootScope.$apply(function(){
+					        var pos = {
+					          lat : position.coords.latitude.toFixed(),
+					          lon : position.coords.longitude.toFixed()
+					        };
+					        DataService.getWeather(pos).then(function (response) {
+					          var thisWeek = response.daily;
+										artyom.say(thisWeek.summary);
+					        });
+					      });
+					    });
+					  }
 					}
 				},
 
@@ -182,7 +298,8 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 				{
 					indexes:['What time is it'],
 					action:function(){
-						artyom.say('It is ' + $rootScope.curTime.time.hours + ' ' + $rootScope.curTime.time.min + $rootScope.curTime.time.meridiem);
+						var curTime = DataService.getTime();
+						artyom.say('It is ' + curTime.hours + ' ' + curTime.min + curTime.meridiem);
 					}
 				},
 
