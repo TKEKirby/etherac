@@ -18,14 +18,7 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 			for (var i = 0; i < res.length; i++) {
 				if (titles.indexOf(res[i].title.toString()) === -1)  {
 					var songTitle = res[i].title.toString().toLowerCase();
-					songTitle = songTitle.toString().split(' (', 1);
-					songTitle = songTitle.toString().split(' ft', 1);
-					songTitle = songTitle.toString().split(' ft.', 1);
-					songTitle = songTitle.toString().split(' feat', 1);
-					songTitle = songTitle.toString().split(' with', 1);
-					songTitle = songTitle.toString().split(' w-', 1);
-					songTitle = songTitle.toString().replace(',', '');
-					titles.push(songTitle);
+					songTitle = formatString(songTitle);				titles.push(songTitle);
 				}
 			}
 			for (var j = 0; j < titles.length; j++) {
@@ -46,13 +39,7 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 			for (var i = 0; i < res.length; i++) {
 				if (titles.indexOf(res[i].title.toString()) === -1)  {
 					var songTitle = res[i].title.toString().toLowerCase();
-					songTitle = songTitle.toString().split(' (', 1);
-					songTitle = songTitle.toString().split(' ft', 1);
-					songTitle = songTitle.toString().split(' ft.', 1);
-					songTitle = songTitle.toString().split(' feat', 1);
-					songTitle = songTitle.toString().split(' with', 1);
-					songTitle = songTitle.toString().split(' w-', 1);
-					songTitle = songTitle.toString().replace(',', '');
+					songTitle = formatString(songTitle);
 					titles.push(songTitle);
 				}
 			}
@@ -126,6 +113,20 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					}
 				},
 
+				{
+					indexes:['show voice options'],
+					action:function(){
+
+						var voices = artyom.getVoices();
+
+						for(var i = 0;i < voices.length;i++){
+    					var voice = voices[i];
+    					console.log(voice.name);
+						}
+						artyom.say('Here you are');
+					}
+				},
+
 				/*
 				* Command Description:
 				* Command:
@@ -135,6 +136,36 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					indexes:['Are you awake','You up','Are you there','Are you up'],
 					action:function(){
 						artyom.say('For you sir, always');
+					}
+				},
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
+				*/
+				{
+					indexes:['I am up','I\'m up','I am awake','I\'m awake'],
+					action:function(){
+						if (navigator.geolocation) {
+							navigator.geolocation.getCurrentPosition(function(position){
+								$rootScope.$apply(function(){
+									var pos = {
+										lat : position.coords.latitude.toFixed(),
+										lon : position.coords.longitude.toFixed()
+									};
+									DataService.getWeather(pos).then(function (response) {
+										var currently = response.currently;
+										var today = response.daily.data[0];
+										var temp = parseInt(currently.apparentTemperature);
+										artyom.say('Good Morning, Sir.');
+										artyom.say('Todays forcast is ' + today.summary);
+										artyom.say('There is an expected high of ' + today.temperatureMax.toFixed() + ' and a low of ' + today.temperatureMin.toFixed());
+										artyom.say('The current temperature is ' + temp + ' degrees');
+									});
+								});
+							});
+						}
 					}
 				},
 

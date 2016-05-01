@@ -2,7 +2,7 @@
 
 angular.module('etherac')
 
-.controller('MusicLibCtrl', ['$rootScope', '$scope', '$http', '$timeout', '$window', 'SpeechService', 'MusicService', 'Upload', function($rootScope, $scope, $http, $timeout, $window, SpeechService, MusicService, Upload) {
+.controller('MusicLibCtrl', ['$rootScope', '$scope', '$http', '$timeout', '$window', '$modal', 'SpeechService', 'MusicService', function($rootScope, $scope, $http, $timeout, $window, $modal, SpeechService, MusicService) {
 
 	$rootScope.pageTitle = $rootScope.currentUser.fullname + '| Music Library';
 	$scope.errorMessage = '';
@@ -31,7 +31,7 @@ angular.module('etherac')
 			keyEnabled: true,
 			audioFullScreen: true
 		});
-});
+	});
 
 	/*
 	* Description:
@@ -99,58 +99,38 @@ angular.module('etherac')
 	};
 
 
-	/*
-	* Description:
-	* Use ng-file-upload to ad songs to library
-	* Params: file to upload
-	* Return: none
-	*/
-	$scope.uploadFiles = function (files) {
-	        $scope.files = files;
-	        if (files && files.length) {
-	            Upload.upload({
-	                url: '../songs/',
-	                data: {
-	                    files: files
-	                }
-	            }).then(function (response) {
-	                $timeout(function () {
-	                    $scope.result = response.data;
-	                });
-	            }, function (response) {
-	                if (response.status > 0) {
-	                    $scope.errorMsg = response.status + ': ' + response.data;
-	                }
-	            }, function (evt) {
-	                $scope.progress =
-	                    Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-	            });
-	        }
-	    };
-
-
-	readLibrary();
-	startContinuousArtyom();
 
 
 	/*
 	* Description:
 	*
-	* Params:
-	* Return:
+	* Params: none
+	* Return: none
 	*/
-	/*
-	$scope.create = function () {
-	var prompt = $window.prompt('Create a new task :', 'Task Name');
-	if (prompt !== null ) {
-	$http.post('/task', {name: prompt}).success(function () {
-	read();
-}).error(function (error, status) {
-$scope.errorMessage = error + ' (code:' + status + ')';
-});
-}
-};
-*/
+	$scope.uploadSongModal = function () {
+		var uploadModal = $modal.open({
+			templateUrl:'songUpload.html',
+			controller: 'SongUploadCtrl',
+			size: 'sm'
+		});
+		uploadModal.result.then(function () {
+		}, function () {
+			setTimeout(function(){
+				MusicService.readLibrary().then(function (res) {
+					if (res !== 'error') {
+						console.log(res);
+						$scope.songlibrary = res;
+					}
+				});
+			},250);
+			console.log('Modal dismissed at: ' + new Date());
+		});
+	};
+
+	readLibrary();
+	startContinuousArtyom();
+	
+}]);
 
 /*
 * Description:
@@ -168,4 +148,41 @@ $scope.errorMessage = error + ' (code:' + status + ')';
 };
 */
 
-}]);
+
+
+
+
+angular.module('etherac')
+.controller('SongUploadCtrl',function ($scope,$modalInstance,$http,$window,$timeout,Upload) {
+	$scope.uploadFiles = function (files) {
+		var data = {
+			songs: files
+		};
+		data.songs.forEach( function (song, index) {
+			data.songs[index].filename = song.name;
+			data.songs[index].fieldname = 'songs';
+		});
+		$scope.files = files;
+		Upload.upload({
+			url: '/song/uploadSongs',
+			arrayKey: '',
+			data: data
+		}).then(function (response) {
+			$timeout(function () {
+				$scope.result = response.data;
+				$modalInstance.dismiss('done');
+			});
+		}, function (response) {
+			if (response.status > 0) {
+				$scope.errorMsg = response.status + ': ' + response.data;
+			}
+		}, function (evt) {
+			$scope.progress =
+			Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+		});
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+});

@@ -7,7 +7,7 @@ var songSchema = new Schema({
 	title: {type: String, required: true},
 	artist: {type: String, required: true},
 	album: {type: String, required: true},
-	length: {type: String, required: true},
+	tracklength: {type: String},
 	trackNumber: {type: Number},
 	//owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
 	file: {type: String, required: true},
