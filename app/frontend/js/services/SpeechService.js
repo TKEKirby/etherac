@@ -466,7 +466,7 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 				* Response:
 				*/
 				{
-					indexes:['play'],
+					indexes:['play now playing'],
 					action:function(){
 						MusicService.playNowPlaying();
 					}

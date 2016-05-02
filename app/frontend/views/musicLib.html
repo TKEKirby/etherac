@@ -5,12 +5,14 @@
 		<button><a href="#" ng-click="uploadSongModal()" class="fa fa-upload">  Upload Song</a></button>
 
 		<div class="col-md-8" style="height: 600px; overflow: auto">
-			<table class="musicLibrary">
+			<table class="musicLibraryHeader">
 				<tr>
 					<th class="titleColHead"><center>Name</center></th>
 					<th class="artistColHead"><center>Artist</center></th>
 					<th class="albumColHead"><center>Album</center></th>
 				</tr>
+			</table>
+			<table class="musicLibrary drop-box" ngf-drop="uploadFiles($files)" name="songs" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-pattern="'audio/*'" ngf-accept="'audio/*'">
 				<tr ng-repeat="song in songlibrary" ng-dblclick="addToNowPlaying(song)" class="musicLibsongs" ng-class="{songHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 					<td class="titleCol">{{song.title}}</td>
 					<td class="artistCol">{{song.artist}}</td>
@@ -80,7 +82,7 @@
 			</div>
 			<div class="modal-body">
 				<span class="progress" ng-show="progress >= 0">
-					<div ng-repeat="file in files">
+					<div ng-repeat="file in files" style="height: 600px; overflow: auto">
 						<h4>{{file.name}}</h4>
 					</div>
 					<div style="width:{{progress}}%" ng-bind="progress + '%'"></div>

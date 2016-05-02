@@ -2,7 +2,7 @@
 
 angular.module('etherac')
 
-.controller('MusicLibCtrl', ['$rootScope', '$scope', '$http', '$timeout', '$window', '$modal', 'SpeechService', 'MusicService', function($rootScope, $scope, $http, $timeout, $window, $modal, SpeechService, MusicService) {
+.controller('MusicLibCtrl', ['$rootScope', '$scope', '$http', '$timeout', '$window', '$modal', 'SpeechService', 'MusicService', 'Upload', function($rootScope, $scope, $http, $timeout, $window, $modal, SpeechService, MusicService, Upload) {
 
 	$rootScope.pageTitle = $rootScope.currentUser.fullname + '| Music Library';
 	$scope.errorMessage = '';
@@ -98,9 +98,6 @@ angular.module('etherac')
 		MusicService.addToNowPlaying(song);
 	};
 
-
-
-
 	/*
 	* Description:
 	*
@@ -118,18 +115,50 @@ angular.module('etherac')
 			setTimeout(function(){
 				MusicService.readLibrary().then(function (res) {
 					if (res !== 'error') {
-						console.log(res);
 						$scope.songlibrary = res;
 					}
 				});
 			},250);
-			console.log('Modal dismissed at: ' + new Date());
+		});
+	};
+
+	/*
+	* Description:
+	*
+	* Params: none
+	* Return: none
+	*/
+	$scope.uploadFiles = function (files) {
+		var data = {
+			songs: files
+		};
+		data.songs.forEach( function (song, index) {
+			data.songs[index].filename = song.name;
+			data.songs[index].fieldname = 'songs';
+		});
+		$scope.files = files;
+		Upload.upload({
+			url: '/song/uploadSongs',
+			arrayKey: '',
+			data: data
+		}).then(function (response) {
+			$timeout(function () {
+				$scope.result = response.data;
+				readLibrary();
+			});
+		}, function (response) {
+			if (response.status > 0) {
+				$scope.errorMsg = response.status + ': ' + response.data;
+			}
+		}, function (evt) {
+			$scope.progress =
+			Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
 		});
 	};
 
 	readLibrary();
 	startContinuousArtyom();
-	
+
 }]);
 
 /*
