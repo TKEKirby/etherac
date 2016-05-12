@@ -7,6 +7,7 @@ angular.module('etherac')
 	$rootScope.pageTitle = $rootScope.currentUser.fullname + '| Music Library';
 	$scope.errorMessage = '';
 	$scope.songlibrary = [];
+	$scope.playlists = [];
 
 	/*
 	* Set up jPlayerPlaylist variables
@@ -48,7 +49,8 @@ angular.module('etherac')
 				continuous:true,// Artyom will listen forever
 				listen:true, // Start recognizing
 				debug:true, // Show everything in the console
-				speed:'1' // talk normally
+				speed:'1', // talk normally
+				executionKeyword:'would you kindly'
 			});
 			SpeechService.setupSpeech();
 		},250);
@@ -56,7 +58,7 @@ angular.module('etherac')
 
 	/*
 	* Description:
-	* Read the music library into an return it as an array
+	* Read the music library and return it as an array
 	* Params: none
 	* Return: the music library as an arry of objects
 	*/
@@ -64,6 +66,21 @@ angular.module('etherac')
 		MusicService.readLibrary().then(function (res) {
 			if (res !== 'error') {
 				$scope.songlibrary = res;
+			}
+		});
+	};
+
+
+	/*
+	* Description:
+	* Read the playlists and return it as an array
+	* Params: none
+	* Return: the playlists as an arry of objects with a name and song array
+	*/
+	var readPlaylists = function (){
+		MusicService.readPlaylists().then(function (res) {
+			if (res !== 'error') {
+				$scope.playlists = res;
 			}
 		});
 	};
@@ -87,7 +104,6 @@ angular.module('etherac')
 		}
 	};
 
-
 	/*
 	* Description:
 	* Call Music service function to add song to now playing
@@ -109,6 +125,39 @@ angular.module('etherac')
 			templateUrl:'songUpload.html',
 			controller: 'SongUploadCtrl',
 			size: 'sm'
+		});
+		uploadModal.result.then(function () {
+		}, function () {
+			setTimeout(function(){
+				MusicService.readLibrary().then(function (res) {
+					if (res !== 'error') {
+						$scope.songlibrary = res;
+					}
+				});
+			},250);
+		});
+	};
+
+	/*
+	* Description:
+	*
+	* Params: none
+	* Return: none
+	*/
+	$scope.AddtoPlaylistModal = function (song) {
+		var uploadModal = $modal.open({
+			templateUrl:'AddtoPlaylist.html',
+			controller: 'AddtoPlaylistCtrl',
+			size: 'sm',
+			resolve: {
+				song:  function () {
+					return song;
+				},
+				playlists: function () {
+					readPlaylists();
+					return $scope.playlists;
+				}
+			}
 		});
 		uploadModal.result.then(function () {
 		}, function () {
@@ -156,6 +205,7 @@ angular.module('etherac')
 		});
 	};
 
+	readPlaylists();
 	readLibrary();
 	startContinuousArtyom();
 
@@ -209,6 +259,42 @@ angular.module('etherac')
 			$scope.progress =
 			Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
 		});
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+});
+
+
+angular.module('etherac')
+.controller('AddtoPlaylistCtrl',function ($scope,$modalInstance,$http,song,playlists) {
+	$scope.song = song;
+	$scope.playlists = playlists;
+	$scope.playlistSelect = 'newPL';
+	console.log($scope.playlistSelect);
+
+	$scope.selectPlaylist = function (list) {
+		$scope.playlistSelect = list;
+	};
+
+	$scope.addtoPL = function (song, plist) {
+		if (plist==='newPL') {
+			if ($scope.newPlaylistTitle) {
+				plist=$scope.newPlaylistTitle;
+			}
+			else {
+				$scope.errorMessage = 'Enter New PLaylist Name';
+			}
+		}
+		console.log(plist);
+		if (plist) {
+			$http.put('/song/'+song._id, {playlist: plist}).success(function () {
+				$modalInstance.dismiss('Success');
+			}).error(function (error, status) {
+				$scope.errorMessage = error + ' (code:' + status + ')';
+			});
+		}
 	};
 
 	$scope.cancel = function () {

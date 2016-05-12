@@ -1,23 +1,32 @@
 <section id="musicPlaylist" class="musicPlaylist section offset-header">
-	<div class="container text-center">
-		<h1>Tasks</h1>
-		<table class="tasks-table">
-			<tr>
-				<th style="color:white">Name</th>
-				<th style="color:white" class="actions-col">Actions</th>
-			</tr>
-			<tr ng-repeat="task in tasks">
-				<td style="color:white">{{task.name}}</i></td>
-				<td class="actions-col">
-					<i class="fa fa-edit" ng-click="edit(task._id, task.name)"  style="color:white"></i> &nbsp;
-					<i class="fa fa-remove" ng-click="delete(task._id)"  style="color:white"></i>
-				</td>
-			</tr>
-		</table>
-		<p style="text-align:right">
-			<button class="btn btn-primary" style="width:100px" ng-click="create()"><i class="fa fa-plus"> New Task</i></button>
-		</p>
-
-		<p style="color:red">{{errorMessage}}</p>
+	<div class="container-fluid text-center">
+		<h1>Playlists</h1>
+		<div class="col-md-8">
+			<ul class="nav nav-tabs" role="tablist">
+				<li ng-repeat="playlist in playlists" role="presentation" class="active"><a href="#{{playlist.name}}" aria-controls="{{playlist.name}}" role="tab" data-toggle="tab">{{playlist.name}}</a></li>
+			</ul>
+			<div class="tab-content" ng-repeat="playlist in playlists">
+				<div role="tabpanel" class="tab-pane active" id="{{playlist.name}}">
+					<table class="musicLibraryHeader">
+						<tr>
+							<th class="titleColHead"><center>Name</center></th>
+							<th class="artistColHead"><center>Artist</center></th>
+							<th class="albumColHead"><center>Album</center></th>
+							<th class="albumColHead"><center>Actions</center></th>
+						</tr>
+					</table>
+					<div style="height: 600px; overflow: auto">
+						<table class="musicLibrary drop-box">
+							<tr ng-repeat="song in playlist.songs" ng-dblclick="addToNowPlaying(song)" class="musicLibsongs" ng-class="{songHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+								<td class="titleCol">{{song.title}}</td>
+								<td class="artistCol">{{song.artist}}</td>
+								<td class="albumCol">{{song.album}}</td>
+								<td class="actionsCol"><button class="button btn glyphicon glyphicon-plus"></button><button class="button btn glyphicon glyphicon-minus"></button></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>

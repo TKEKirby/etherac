@@ -78,24 +78,39 @@ body {
    width: 10%;
 }
 
+.actionCol {
+   color: white;
+   width: 10%;
+}
+
 .titleColHead {
    font-size: 30px;
    color: white;
+   width: 30%;
 }
 
 .artistColHead {
   font-size: 30px;
   color: white;
+  width: 10%;
 }
 
 .albumColHead {
    font-size: 30px;
    color: white;
+   width: 15%;
 }
 
 .lengthColHead {
    font-size: 30px;
    color: white;
+   width: 10%;
+}
+
+.actionColHead {
+   font-size: 30px;
+   color: white;
+   width: 10%;
 }
 
 

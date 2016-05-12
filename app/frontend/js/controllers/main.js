@@ -18,7 +18,8 @@ angular.module('etherac')
         continuous:true,// Artyom will listen forever
         listen:true, // Start recognizing
         debug:true, // Show everything in the console
-        speed:'1' // talk normally
+        speed:'1', // talk normally
+        executionKeyword:'would you kindly'
       });
       SpeechService.setupSpeech();
     },250);

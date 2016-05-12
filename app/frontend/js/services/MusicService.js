@@ -26,6 +26,52 @@ angular.module('etherac').service('MusicService', ['$rootScope', '$http', '$q', 
 
 		/*
 		* Description:
+		* Read the music library into an return it as an array
+		* Params: none
+		* Return: the music library as an arry of objects
+		*/
+		readPlaylists:function () {
+			var deferred = $q.defer();
+			var playlists = [];
+			var playlist = {
+				name:'',
+				songs:[]
+			};
+			$http.get('/song').success(function (songlibrary) {
+				if (songlibrary === '0') {
+					playlists = [];
+					deferred.resolve(playlists);
+				} else {
+					for (var i = 0; i < songlibrary.length; i++) {
+						for (var j = 0; j < songlibrary[i].playlist.length; j++) {
+							var added = false;
+							playlist = {name:'',songs:[]};
+							playlist.name = songlibrary[i].playlist[j];
+							for (var k = 0; k < playlists.length; k++) {
+								console.log(playlists);
+								if (playlists[k].name === playlist.name) {
+									playlists[k].songs.push(songlibrary[i]);
+									added = true;
+								}
+							}
+							if (!added) {
+								playlist.songs[0] = songlibrary[i];
+								playlists.push(playlist);
+							}
+						}
+					}
+					deferred.resolve(playlists);
+				}
+			}).error(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		},
+
+
+
+		/*
+		* Description:
 		* Add song to now playing list
 		* Params: none
 		* Return: none

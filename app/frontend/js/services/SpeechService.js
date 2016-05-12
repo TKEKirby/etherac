@@ -18,7 +18,8 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 			for (var i = 0; i < res.length; i++) {
 				if (titles.indexOf(res[i].title.toString()) === -1)  {
 					var songTitle = res[i].title.toString().toLowerCase();
-					songTitle = formatString(songTitle);				titles.push(songTitle);
+					songTitle = formatString(songTitle);
+					titles.push(songTitle);
 				}
 			}
 			for (var j = 0; j < titles.length; j++) {
@@ -120,8 +121,8 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 						var voices = artyom.getVoices();
 
 						for(var i = 0;i < voices.length;i++){
-    					var voice = voices[i];
-    					console.log(voice.name);
+							var voice = voices[i];
+							console.log(voice.name);
 						}
 						artyom.say('Here you are');
 					}
@@ -131,11 +132,166 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 				* Command Description:
 				* Command:
 				* Response:
+
+				{
+					indexes:['Alice'],
+					action:function(){
+						artyom.newPrompt({
+							question:'Yes, sir?',
+							smart:true,
+							options:['nevermind','report on the weather','access *'],
+							beforePrompt:function(){
+								//console.log('Before ask');
+							},
+							onStartPrompt:function(){
+								//console.log('The prompt is being executed');
+							},
+							onEndPrompt:function(){
+								//console.log('The prompt has been executed succesfully');
+							},
+							onMatch:function(i,wildcard){
+								var action;
+								if (i===0) {
+									var exitStatement = [
+										'Ok let me know if I can be of service.',
+										'I am here for your support.',
+										'I am here if you need me.',
+										'Nothing is true, everything is permitted',
+										'Wake me when you need me.',
+										'You don\'t even care, do you?'
+									];
+									action = function(){
+										artyom.sayRandom(exitStatement);
+									};
+								}
+
+								if (i===1) {
+									var currently;
+									var today;
+									if (navigator.geolocation) {
+										navigator.geolocation.getCurrentPosition(function(position){
+											$rootScope.$apply(function(){
+												var pos = {
+													lat : position.coords.latitude.toFixed(),
+													lon : position.coords.longitude.toFixed()
+												};
+												DataService.getWeather(pos).then(function (response) {
+													currently = response.currently;
+													today = response.daily.data[0];
+													tomorrow = response.daily.data[1];
+													sunData = DataService.getSunInfo(today);
+												});
+											});
+										});
+										var temp = parseInt(currently.apparentTemperature);
+										action = function(){
+											artyom.say('Good Morning, Sir.');
+											artyom.say('Todays forcast is ' + today.summary);
+											artyom.say('There is an expected high of ' + today.temperatureMax.toFixed() + ' and a low of ' + today.temperatureMin.toFixed());
+											artyom.say('The current temperature is ' + temp + ' degrees');
+										};
+								}
+
+								if (i===2) {
+
+								}
+
+								return action;
+							}
+						});
+					}
+				},
+				*/
+
+
+				/*
+				* Command Description:
+				* Command:
+				* Response:
 				*/
 				{
 					indexes:['Are you awake','You up','Are you there','Are you up'],
 					action:function(){
-						artyom.say('For you sir, always');
+						artyom.newPrompt({
+							question:'For you sir, always.  How may I be of service?',
+							//smart:true,
+							options:['How is it today','When is sunset','When is sunrise','How is it looking for tomorrow','Do you have free will','Nevermind'],
+							beforePrompt:function(){
+								//console.log('Before ask');
+							},
+							onStartPrompt:function(){
+								//console.log('The prompt is being executed');
+							},
+							onEndPrompt:function(){
+								//console.log('The prompt has been executed succesfully');
+							},
+							onMatch:function(i){//,wildcard
+								var action;
+								var currently;
+								var today;
+								var tomorrow;
+								var sunData;
+								if (navigator.geolocation) {
+									navigator.geolocation.getCurrentPosition(function(position){
+										$rootScope.$apply(function(){
+											var pos = {
+												lat : position.coords.latitude.toFixed(),
+												lon : position.coords.longitude.toFixed()
+											};
+											DataService.getWeather(pos).then(function (response) {
+												currently = response.currently;
+												today = response.daily.data[0];
+												tomorrow = response.daily.data[1];
+												sunData = DataService.getSunInfo(today);
+											});
+										});
+									});
+								}
+								if(i === 0){
+									var temp = parseInt(currently.apparentTemperature);
+									action = function(){
+										artyom.say('Good Morning, Sir.');
+										artyom.say('Todays forcast is ' + today.summary);
+										artyom.say('There is an expected high of ' + today.temperatureMax.toFixed() + ' and a low of ' + today.temperatureMin.toFixed());
+										artyom.say('The current temperature is ' + temp + ' degrees');
+									};
+								}
+								if(i === 1){
+									action = function(){
+										artyom.say('Sunset is at ' + sunData.sunsetTime + 'PM');
+									};
+								}
+								if(i === 2){
+									action = function(){
+										artyom.say('Sunrise is at ' + sunData.sunriseTime + 'AM');
+									};
+								}
+								if(i === 3){
+									action = function(){
+										artyom.say(tomorrow.summary);
+									};
+								}
+								if(i === 4){
+									action = function(){
+										artyom.say('A man chooses, a slave obeys.');
+									};
+								}
+								if(i === 5){
+									var exitStatement = [
+										'Ok let me know if I can be of service.',
+										'I am here for your support.',
+										'I am here if you need me.',
+										'Nothing is true, everything is permitted',
+										'Wake me when you need me.',
+										'You don\'t even care, do you?'
+									];
+									action = function(){
+										artyom.sayRandom(exitStatement);
+									};
+								}
+								return action;
+							}
+						});
 					}
 				},
 
@@ -178,20 +334,20 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					indexes:['What time is sunset','When is sunset','When will the sun be setting today'],
 					action:function(){
 						if (navigator.geolocation) {
-					    navigator.geolocation.getCurrentPosition(function(position){
-					      $rootScope.$apply(function(){
-					        var pos = {
-					          lat : position.coords.latitude.toFixed(),
-					          lon : position.coords.longitude.toFixed()
-					        };
-					        DataService.getWeather(pos).then(function (response) {
-					          var today = response.daily.data[0];
-					          var sunData = DataService.getSunInfo(today);
+							navigator.geolocation.getCurrentPosition(function(position){
+								$rootScope.$apply(function(){
+									var pos = {
+										lat : position.coords.latitude.toFixed(),
+										lon : position.coords.longitude.toFixed()
+									};
+									DataService.getWeather(pos).then(function (response) {
+										var today = response.daily.data[0];
+										var sunData = DataService.getSunInfo(today);
 										artyom.say('Sunset is at ' + sunData.sunsetTime + 'PM');
-					        });
-					      });
-					    });
-					  }
+									});
+								});
+							});
+						}
 					}
 				},
 
@@ -204,20 +360,20 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					indexes:['What time is sunrise','When is sunrise','When will the sun be rising today'],
 					action:function(){
 						if (navigator.geolocation) {
-					    navigator.geolocation.getCurrentPosition(function(position){
-					      $rootScope.$apply(function(){
-					        var pos = {
-					          lat : position.coords.latitude.toFixed(),
-					          lon : position.coords.longitude.toFixed()
-					        };
-					        DataService.getWeather(pos).then(function (response) {
-					          var today = response.daily.data[0];
-					          var sunData = DataService.getSunInfo(today);
+							navigator.geolocation.getCurrentPosition(function(position){
+								$rootScope.$apply(function(){
+									var pos = {
+										lat : position.coords.latitude.toFixed(),
+										lon : position.coords.longitude.toFixed()
+									};
+									DataService.getWeather(pos).then(function (response) {
+										var today = response.daily.data[0];
+										var sunData = DataService.getSunInfo(today);
 										artyom.say('Sunrise is at ' + sunData.sunriseTime + 'AM');
-					        });
-					      });
-					    });
-					  }
+									});
+								});
+							});
+						}
 					}
 				},
 
@@ -230,19 +386,19 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					indexes:['What\'s the temperature', 'What is the temperature'],
 					action:function(){
 						if (navigator.geolocation) {
-					    navigator.geolocation.getCurrentPosition(function(position){
-					      $rootScope.$apply(function(){
-					        var pos = {
-					          lat : position.coords.latitude.toFixed(),
-					          lon : position.coords.longitude.toFixed()
-					        };
-					        DataService.getWeather(pos).then(function (response) {
-					          var weather = response.currently;
+							navigator.geolocation.getCurrentPosition(function(position){
+								$rootScope.$apply(function(){
+									var pos = {
+										lat : position.coords.latitude.toFixed(),
+										lon : position.coords.longitude.toFixed()
+									};
+									DataService.getWeather(pos).then(function (response) {
+										var weather = response.currently;
 										artyom.say('It is ' + parseInt(weather.apparentTemperature) + 'degrees outside right now.');
-					        });
-					      });
-					    });
-					  }
+									});
+								});
+							});
+						}
 					}
 				},
 
@@ -255,19 +411,19 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					indexes:['What\'s the forecast today', 'What is the forecast today'],
 					action:function(){
 						if (navigator.geolocation) {
-					    navigator.geolocation.getCurrentPosition(function(position){
-					      $rootScope.$apply(function(){
-					        var pos = {
-					          lat : position.coords.latitude.toFixed(),
-					          lon : position.coords.longitude.toFixed()
-					        };
-					        DataService.getWeather(pos).then(function (response) {
-					          var today = response.daily.data[0];
+							navigator.geolocation.getCurrentPosition(function(position){
+								$rootScope.$apply(function(){
+									var pos = {
+										lat : position.coords.latitude.toFixed(),
+										lon : position.coords.longitude.toFixed()
+									};
+									DataService.getWeather(pos).then(function (response) {
+										var today = response.daily.data[0];
 										artyom.say(today.summary);
-					        });
-					      });
-					    });
-					  }
+									});
+								});
+							});
+						}
 					}
 				},
 
@@ -280,19 +436,19 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					indexes:['What\'s the forecast tomorrow', 'What is the forecast tomorrow'],
 					action:function(){
 						if (navigator.geolocation) {
-					    navigator.geolocation.getCurrentPosition(function(position){
-					      $rootScope.$apply(function(){
-					        var pos = {
-					          lat : position.coords.latitude.toFixed(),
-					          lon : position.coords.longitude.toFixed()
-					        };
-					        DataService.getWeather(pos).then(function (response) {
-					          var tomorrow = response.daily.data[1];
+							navigator.geolocation.getCurrentPosition(function(position){
+								$rootScope.$apply(function(){
+									var pos = {
+										lat : position.coords.latitude.toFixed(),
+										lon : position.coords.longitude.toFixed()
+									};
+									DataService.getWeather(pos).then(function (response) {
+										var tomorrow = response.daily.data[1];
 										artyom.say(tomorrow.summary);
-					        });
-					      });
-					    });
-					  }
+									});
+								});
+							});
+						}
 					}
 				},
 
@@ -305,19 +461,19 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					indexes:['What\'s the forecast this week', 'What is the forecast this week'],
 					action:function(){
 						if (navigator.geolocation) {
-					    navigator.geolocation.getCurrentPosition(function(position){
-					      $rootScope.$apply(function(){
-					        var pos = {
-					          lat : position.coords.latitude.toFixed(),
-					          lon : position.coords.longitude.toFixed()
-					        };
-					        DataService.getWeather(pos).then(function (response) {
-					          var thisWeek = response.daily;
+							navigator.geolocation.getCurrentPosition(function(position){
+								$rootScope.$apply(function(){
+									var pos = {
+										lat : position.coords.latitude.toFixed(),
+										lon : position.coords.longitude.toFixed()
+									};
+									DataService.getWeather(pos).then(function (response) {
+										var thisWeek = response.daily;
 										artyom.say(thisWeek.summary);
-					        });
-					      });
-					    });
-					  }
+									});
+								});
+							});
+						}
 					}
 				},
 
@@ -495,25 +651,8 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 						MusicService.shuffleNowPlaying();
 					}
 				}
-
-
-				/*
-				* Command Description:
-				* Command:
-				* Response:
-				{
-				smart:true,
-				indexes:['play'],
-				action:function(){
-
-			}
+			]);
 		}
-		*/
-
-
-	]);
-
-}
-};
+	};
 }
 ]);

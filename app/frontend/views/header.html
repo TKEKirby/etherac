@@ -24,7 +24,9 @@
                 <li ng-hide="isSignedIn"><a href="#" ng-click="signupModal()" class="fa fa-user-plus">  Sign Up</a></li>
                 <li ng-show="isSignedIn"><a href="/admin" class="fa fa-list-alt">  Admin</a></li>
                 <li ng-show="isSignedIn"><a href="/" class="fa fa-bell-o">  Reminders</a></li>
+                <li role="separator" class="divider"></li>
                 <li ng-show="isSignedIn"><a href="/musicLib" class="fa fa-music">  Music</a></li>
+                <li ng-show="isSignedIn"><a href="/musicPlaylist" class="fa fa-music">  Playlists</a></li>
                 <li role="separator" class="divider"></li>
                 <li ng-hide="isSignedIn"><a href="#" ng-click="signinModal()" class="fa fa-sign-in">  Sign In</a></li>
                 <li ng-show="isSignedIn"><a href="#" ng-click="signout()" class="fa fa-sign-out">  Signout</a></li>

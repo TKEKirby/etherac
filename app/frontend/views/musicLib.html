@@ -2,90 +2,105 @@
 	<div class="container-fluid text-center">
 		<h1>Music Library</h1>
 
-		<button><a href="#" ng-click="uploadSongModal()" class="fa fa-upload">  Upload Song</a></button>
+		<button ng-click="uploadSongModal()" class="button btn fa fa-upload"></button>
 
-		<div class="col-md-8" style="height: 600px; overflow: auto">
+		<div class="col-md-8">
 			<table class="musicLibraryHeader">
 				<tr>
 					<th class="titleColHead"><center>Name</center></th>
 					<th class="artistColHead"><center>Artist</center></th>
 					<th class="albumColHead"><center>Album</center></th>
+					<th class="albumColHead"><center>Actions</center></th>
 				</tr>
 			</table>
-			<table class="musicLibrary drop-box" ngf-drop="uploadFiles($files)" name="songs" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-pattern="'audio/*'" ngf-accept="'audio/*'">
-				<tr ng-repeat="song in songlibrary" ng-dblclick="addToNowPlaying(song)" class="musicLibsongs" ng-class="{songHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-					<td class="titleCol">{{song.title}}</td>
-					<td class="artistCol">{{song.artist}}</td>
-					<td class="albumCol">{{song.album}}</td>
-				</tr>
-			</table>
+			<div style="height: 600px; overflow: auto">
+				<table class="musicLibrary drop-box" ngf-drop="uploadFiles($files)" name="songs" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-pattern="'audio/*'" ngf-accept="'audio/*'">
+					<tr ng-repeat="song in songlibrary" ng-dblclick="addToNowPlaying(song)" class="musicLibsongs" ng-class="{songHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+						<td class="titleCol">{{song.title}}</td>
+						<td class="artistCol">{{song.artist}}</td>
+						<td class="albumCol">{{song.album}}</td>
+						<td class="actionsCol"><button class="button btn glyphicon glyphicon-plus" ng-click="AddtoPlaylistModal(song)"></button><button class="button btn glyphicon glyphicon-minus"></button></td>
+					</tr>
+				</table>
+			</div>
+			<span class="progress" ng-show="progress >= 0">
+				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{progress}}%" ng-bind="progress + '%'">
+					<div class="alert alert-success alert-dismissible" role="alert" ng-show="progress === 100">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<strong>Success</strong> Song Uploaded to Library.
+					</div>
+				</span>
+			</div>
 		</div>
-		<div class="col-md-4">
-			<div id="jp_container_1" class="jp-video jp-video-270p" role="application" aria-label="media player">
-				<div class="jp-type-playlist">
-					<div id="jquery_jplayer_1" class="jp-jplayer"></div>
-					<div class="jp-gui">
-						<div class="jp-video-play">
-							<button class="jp-video-play-icon" role="button" tabindex="0">play</button>
-						</div>
-						<div class="jp-interface">
-							<div class="jp-progress">
-								<div class="jp-seek-bar">
-									<div class="jp-play-bar"></div>
-								</div>
-							</div>
-							<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-							<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
-							<div class="jp-controls-holder">
-								<div class="jp-controls">
-									<button class="jp-previous" role="button" tabindex="0">previous</button>
-									<button class="jp-play" role="button" tabindex="0">play</button>
-									<button class="jp-next" role="button" tabindex="0">next</button>
-									<button class="jp-stop" role="button" tabindex="0">stop</button>
-								</div>
-								<div class="jp-volume-controls">
-									<button class="jp-mute" role="button" tabindex="0">mute</button>
-									<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
-									<div class="jp-volume-bar">
-										<div class="jp-volume-bar-value"></div>
-									</div>
-								</div>
-								<div class="jp-toggles">
-									<button class="jp-repeat" role="button" tabindex="0">repeat</button>
-									<button class="jp-shuffle" role="button" tabindex="0">shuffle</button>
-									<button class="jp-full-screen" role="button" tabindex="0">full screen</button>
-								</div>
-							</div>
-							<div class="jp-details">
-								<div class="jp-title" aria-label="title">&nbsp;</div>
+	</div>
+
+	<!-- The Music Player, to be moved to seporate HTML then ng-included in all logged in pages from header-->
+	<div class="col-md-4">
+		<div id="jp_container_1" class="jp-video jp-video-270p" role="application" aria-label="media player">
+			<div class="jp-type-playlist">
+				<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+				<div class="jp-gui">
+					<div class="jp-video-play">
+						<button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+					</div>
+					<div class="jp-interface">
+						<div class="jp-progress">
+							<div class="jp-seek-bar">
+								<div class="jp-play-bar"></div>
 							</div>
 						</div>
+						<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+						<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+						<div class="jp-controls-holder">
+							<div class="jp-controls">
+								<button class="jp-previous" role="button" tabindex="0">previous</button>
+								<button class="jp-play" role="button" tabindex="0">play</button>
+								<button class="jp-next" role="button" tabindex="0">next</button>
+								<button class="jp-stop" role="button" tabindex="0">stop</button>
+							</div>
+							<div class="jp-volume-controls">
+								<button class="jp-mute" role="button" tabindex="0">mute</button>
+								<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+								<div class="jp-volume-bar">
+									<div class="jp-volume-bar-value"></div>
+								</div>
+							</div>
+							<div class="jp-toggles">
+								<button class="jp-repeat" role="button" tabindex="0">repeat</button>
+								<button class="jp-shuffle" role="button" tabindex="0">shuffle</button>
+								<button class="jp-full-screen" role="button" tabindex="0">full screen</button>
+							</div>
+						</div>
+						<div class="jp-details">
+							<div class="jp-title" aria-label="title">&nbsp;</div>
+						</div>
 					</div>
-					<div class="jp-playlist" style="height: 330px; overflow: auto;">
-						<ul>
-							<!-- The method Playlist.displayPlaylist() uses this unordered list -->
-							<li>&nbsp;</li>
-						</ul>
-					</div>
-					<div class="jp-no-solution">
-						<span>Update Required</span>
-						To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-					</div>
+				</div>
+				<div class="jp-playlist" style="height: 330px; overflow: auto;">
+					<ul>
+						<!-- The method Playlist.displayPlaylist() uses this unordered list -->
+						<li>&nbsp;</li>
+					</ul>
+				</div>
+				<div class="jp-no-solution">
+					<span>Update Required</span>
+					To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
 				</div>
 			</div>
 		</div>
+	</div>
 
 
-		<script type="text/ng-template" id="songUpload.html">
-			<div class="modal-header">
-				<h3 class="modal-title">Upload Songs</h3>
-			</div>
-			<div class="modal-body">
-				<span class="progress" ng-show="progress >= 0">
-					<div ng-repeat="file in files" style="height: 600px; overflow: auto">
-						<h4>{{file.name}}</h4>
-					</div>
-					<div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+	<script type="text/ng-template" id="songUpload.html">
+		<div class="modal-header">
+			<h3 class="modal-title">Upload Songs</h3>
+		</div>
+		<div class="modal-body">
+			<span class="progress" ng-show="progress >= 0">
+				<div ng-repeat="file in files" style="height: 600px; overflow: auto">
+					<h4>{{file.name}}</h4>
+				</div>
+				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{progress}}%" ng-bind="progress + '%'">
 				</span>
 				<form name="form">
 					<label for="songs" class="hidden"></label>
@@ -95,6 +110,35 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-warning" ng-click="cancel()">Close</button>
+			</div>
+		</script>
+
+
+		<script type="text/ng-template" id="AddtoPlaylist.html">
+			<div class="modal-header">
+				<h3 class="modal-title">Add Song to Playlist</h3>
+			</div>
+			<div class="modal-body">
+				<div class="input-group">
+					<ul>
+						<li ng-repeat="playlist in playlists">
+							<label class="input-group-addon">
+								<input type="radio" id="playlist.name" name="playlist.name" value="playlist.name" ng-model="playlistSelect" ng-click="selectPlaylist(playlist.name)"/> {{playlist.name}}
+							</label>
+						</li>
+						<li>
+							<label class="input-group-addon">
+								<input type="radio" id="newPL" name="New Playlist" value="New Playlist" ng-model="playlistSelect" ng-click="selectPlaylist('newPL')"/> New Playlist
+							</label>
+						</li>
+					</ul>
+				</div>
+				<label for="NewPlaylistTitle">New Playlist Title</label>
+				<input class="form-control" name="NewPlaylistTitle" ng-model="newPlaylistTitle" placeholder="New Playlist Title" ng-show="playlistSelect==newPL"/>
+				<div class="modal-footer">
+					<button class="btn btn-primary" ng-click="addtoPL(song,playlistSelect)">Add</button>
+					<button class="btn btn-warning" ng-click="cancel()">Close</button>
+				</div>
 			</div>
 		</script>
 	</section>
