@@ -132,14 +132,14 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 				* Command Description:
 				* Command:
 				* Response:
-
+				*/
 				{
 					indexes:['Alice'],
 					action:function(){
 						artyom.newPrompt({
-							question:'Yes, sir?',
-							smart:true,
-							options:['nevermind','report on the weather','access *'],
+							question:'Yes sir?',
+							//smart:true,
+							options:['nevermind','report on the weather','access'],
 							beforePrompt:function(){
 								//console.log('Before ask');
 							},
@@ -149,7 +149,7 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 							onEndPrompt:function(){
 								//console.log('The prompt has been executed succesfully');
 							},
-							onMatch:function(i,wildcard){
+							onMatch:function(i){
 								var action;
 								if (i===0) {
 									var exitStatement = [
@@ -163,45 +163,52 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 									action = function(){
 										artyom.sayRandom(exitStatement);
 									};
+									return action;
 								}
 
 								if (i===1) {
 									var currently;
 									var today;
+									var tomorrow;
+									var sunData;
 									if (navigator.geolocation) {
 										navigator.geolocation.getCurrentPosition(function(position){
-											$rootScope.$apply(function(){
-												var pos = {
-													lat : position.coords.latitude.toFixed(),
-													lon : position.coords.longitude.toFixed()
+											var pos = {
+												lat : position.coords.latitude.toFixed(),
+												lon : position.coords.longitude.toFixed()
+											};
+											DataService.getWeather(pos).then(function (response) {
+												currently = response.currently;
+												today = response.daily.data[0];
+												tomorrow = response.daily.data[1];
+												sunData = DataService.getSunInfo(today);
+												var temp = parseInt(currently.apparentTemperature);
+												action = function(){
+													artyom.say('Good Morning, Sir.');
+													artyom.say('Todays forcast is ' + today.summary);
+													artyom.say('There is an expected high of ' + today.temperatureMax.toFixed() + ' and a low of ' + today.temperatureMin.toFixed());
+													artyom.say('The current temperature is ' + temp + ' degrees');
 												};
-												DataService.getWeather(pos).then(function (response) {
-													currently = response.currently;
-													today = response.daily.data[0];
-													tomorrow = response.daily.data[1];
-													sunData = DataService.getSunInfo(today);
-												});
+												return action;
 											});
 										});
-										var temp = parseInt(currently.apparentTemperature);
+									}
+
+									if (i===2) {
 										action = function(){
-											artyom.say('Good Morning, Sir.');
-											artyom.say('Todays forcast is ' + today.summary);
-											artyom.say('There is an expected high of ' + today.temperatureMax.toFixed() + ' and a low of ' + today.temperatureMin.toFixed());
-											artyom.say('The current temperature is ' + temp + ' degrees');
+											artyom.say('What would you like to do with?');
 										};
+										return action;
+									}
+									else {
+										return action;
+									}
 								}
-
-								if (i===2) {
-
-								}
-
-								return action;
 							}
 						});
 					}
 				},
-				*/
+				//*/
 
 
 				/*
@@ -335,7 +342,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					action:function(){
 						if (navigator.geolocation) {
 							navigator.geolocation.getCurrentPosition(function(position){
-								$rootScope.$apply(function(){
 									var pos = {
 										lat : position.coords.latitude.toFixed(),
 										lon : position.coords.longitude.toFixed()
@@ -345,7 +351,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 										var sunData = DataService.getSunInfo(today);
 										artyom.say('Sunset is at ' + sunData.sunsetTime + 'PM');
 									});
-								});
 							});
 						}
 					}
@@ -361,7 +366,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					action:function(){
 						if (navigator.geolocation) {
 							navigator.geolocation.getCurrentPosition(function(position){
-								$rootScope.$apply(function(){
 									var pos = {
 										lat : position.coords.latitude.toFixed(),
 										lon : position.coords.longitude.toFixed()
@@ -371,7 +375,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 										var sunData = DataService.getSunInfo(today);
 										artyom.say('Sunrise is at ' + sunData.sunriseTime + 'AM');
 									});
-								});
 							});
 						}
 					}
@@ -387,7 +390,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					action:function(){
 						if (navigator.geolocation) {
 							navigator.geolocation.getCurrentPosition(function(position){
-								$rootScope.$apply(function(){
 									var pos = {
 										lat : position.coords.latitude.toFixed(),
 										lon : position.coords.longitude.toFixed()
@@ -396,7 +398,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 										var weather = response.currently;
 										artyom.say('It is ' + parseInt(weather.apparentTemperature) + 'degrees outside right now.');
 									});
-								});
 							});
 						}
 					}
@@ -412,7 +413,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					action:function(){
 						if (navigator.geolocation) {
 							navigator.geolocation.getCurrentPosition(function(position){
-								$rootScope.$apply(function(){
 									var pos = {
 										lat : position.coords.latitude.toFixed(),
 										lon : position.coords.longitude.toFixed()
@@ -421,7 +421,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 										var today = response.daily.data[0];
 										artyom.say(today.summary);
 									});
-								});
 							});
 						}
 					}
@@ -437,7 +436,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					action:function(){
 						if (navigator.geolocation) {
 							navigator.geolocation.getCurrentPosition(function(position){
-								$rootScope.$apply(function(){
 									var pos = {
 										lat : position.coords.latitude.toFixed(),
 										lon : position.coords.longitude.toFixed()
@@ -446,7 +444,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 										var tomorrow = response.daily.data[1];
 										artyom.say(tomorrow.summary);
 									});
-								});
 							});
 						}
 					}
@@ -462,7 +459,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 					action:function(){
 						if (navigator.geolocation) {
 							navigator.geolocation.getCurrentPosition(function(position){
-								$rootScope.$apply(function(){
 									var pos = {
 										lat : position.coords.latitude.toFixed(),
 										lon : position.coords.longitude.toFixed()
@@ -471,7 +467,6 @@ angular.module('etherac').service('SpeechService', ['$rootScope','MusicService',
 										var thisWeek = response.daily;
 										artyom.say(thisWeek.summary);
 									});
-								});
 							});
 						}
 					}

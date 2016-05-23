@@ -86,7 +86,7 @@ module.exports = function (isLoggedIn) {
     });
   });
 
-  router.post('/uploadSongs', upload.array('songs'), function (req, res, next) {
+  router.post('/uploadSongs', upload.array('songs'), function (req, res) { //, next
     var songs = req.files;
     var newData;
     var songData;
